@@ -20,6 +20,7 @@ class m191029_203433_create_images_table extends Migration
         $this->createTable('{{%images}}', [
             'id' => $this->primaryKey(),
             'origin_name' => $this->string()->notNull(),
+            'translit_name' => $this->string()->notNull(),
             'path' => $this->string()->notNull(),
             'width' => $this->smallInteger()->notNull(),
             'hight' => $this->smallInteger()->notNull(),
