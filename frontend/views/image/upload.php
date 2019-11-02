@@ -8,6 +8,8 @@
     
     <?= $form->field($model, 'name') ?>
 
+    <?= $form->field($model, 'description')->textarea(['rows' => '6']) ?>
+
     <button>Submit</button>
 
 <?php ActiveForm::end() ?>

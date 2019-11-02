@@ -14,7 +14,7 @@ class m191030_200310_create_descriptions_table extends Migration
     {
         $this->createTable('{{%descriptions}}', [
             'id' => $this->primaryKey(),
-            'title' => $this->text()->notNull(),
+            'text' => $this->text()->notNull(),
             'image_id' => $this->integer()->notNull()
         ]);
         

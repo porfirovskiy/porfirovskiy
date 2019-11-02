@@ -30,6 +30,8 @@ class ImageController extends Controller
                 $image->user_id = \Yii::$app->user->identity->id;
                 $image->created = date('Y-m-d H:i:s');
                 if ($image->save()) {
+                    $imageId = $image->getPrimaryKey();
+                    $image->saveDescription($request->post('UploadForm')['description'], $imageId);
                     echo 'saved!';
                 } else {
                     echo 'error!';

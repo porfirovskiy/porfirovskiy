@@ -29,8 +29,8 @@ class Descriptions extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'image_id'], 'required'],
-            [['title'], 'string'],
+            [['text', 'image_id'], 'required'],
+            [['text'], 'string'],
             [['image_id'], 'integer'],
             [['image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Images::className(), 'targetAttribute' => ['image_id' => 'id']],
         ];

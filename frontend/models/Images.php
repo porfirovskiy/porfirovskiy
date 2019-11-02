@@ -106,4 +106,13 @@ class Images extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Thumbnails::className(), ['image_id' => 'id']);
     }
+    
+    public function saveDescription(string $text, int $imageId): void {
+        if (isset($text) && !empty($text)) {
+            $descModel = new Descriptions();
+            $descModel->text = $text;
+            $descModel->image_id = $imageId;
+            $descModel->save();
+        }
+    }
 }
