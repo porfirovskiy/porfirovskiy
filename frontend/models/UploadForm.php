@@ -38,15 +38,24 @@ class UploadForm extends Model
     }
     
     /**
-     * Пределать на год/месяц/день TODO!!!
+     * год/месяц/день
+     * Пример images/2019/11/02
      * @return string
      */
     public function getImageDir(): string {
-        $date = date('Y_m_d');
-        $currentAbsoluteDir = \Yii::getAlias('@webroot') . '/' . $this->dir . $date;
-        $currentDir = $this->dir . $date. '/';
-        if (!file_exists($currentAbsoluteDir)) {
-            mkdir($currentAbsoluteDir);
+        $absoluteDirYear = \Yii::getAlias('@webroot') . '/' . $this->dir . date('Y');
+        $absoluteDirMonth = $absoluteDirYear . '/' . date('m');
+        $absoluteDirDay = $absoluteDirMonth . '/' . date('d');
+        $currentDir = $this->dir . date('Y'). '/' . date('m'). '/' . date('d') . '/';
+        if (!file_exists($absoluteDirYear)) {
+            mkdir($absoluteDirYear);
+            mkdir($absoluteDirMonth);
+            mkdir($absoluteDirDay);
+        } elseif (!file_exists($absoluteDirMonth)) {
+            mkdir($absoluteDirMonth);
+            mkdir($absoluteDirDay);
+        } elseif (!file_exists($absoluteDirDay)) {
+            mkdir($absoluteDirDay);
         }
         return $currentDir;
     }

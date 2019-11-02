@@ -23,7 +23,7 @@ class ImageController extends Controller
                 $image->name = $request->post('UploadForm')['name'];
                 $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
                 $image->origin_name = $model->imageFile->baseName;
-                $image->path = $model->imagePath;
+                $image->path = str_replace($model->dir, '', $model->imagePath);
                 $image->width = $model->getImageParams($model->imagePath)['width'];
                 $image->hight = $model->getImageParams($model->imagePath)['hight'];
                 $image->size = $model->imageFile->size;
