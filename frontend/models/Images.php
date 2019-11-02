@@ -42,8 +42,8 @@ class Images extends \yii\db\ActiveRecord
         return [
             [['name', 'origin_name', 'translit_name', 'path', 'width', 'hight', 'size', 'user_id', 'created'], 'required'],
             [['width', 'hight', 'size', 'user_id'], 'integer'],
-            [['created'], 'safe'],
-            [['name', 'origin_name', 'translit_name', 'path'], 'string', 'max' => 255],
+            [['created', 'source'], 'safe'],
+            [['name', 'origin_name', 'translit_name', 'path', 'source'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }

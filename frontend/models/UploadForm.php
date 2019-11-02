@@ -19,7 +19,7 @@ class UploadForm extends Model
     {
         return [
             [['name'], 'required', 'message' => 'Please choose a name.'],
-            [['name'], 'string', 'max' => 256],
+            [['name'], 'string', 'max' => 255],
             [['description'], 'string'],
             [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg']
         ];
