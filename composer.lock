@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "479ef81c55accfcdd0cce616ef4143d7",
+    "content-hash": "d54192d1a625c4effd1bd54d47a1e3bf",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -17,7 +17,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/twbs/bootstrap/zipball/68b0d231a13201eb14acd3dc84e51543d16e5f7e",
-                "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e"
+                "reference": "68b0d231a13201eb14acd3dc84e51543d16e5f7e",
+                "shasum": null
             },
             "require": {
                 "bower-asset/jquery": ">=1.9.1,<4.0"
@@ -38,7 +39,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/5e670ad62f50c738388d4dcec78d2888505ad77b",
-                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
+                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b",
+                "shasum": null
             },
             "require": {
                 "bower-asset/jquery": ">=1.7"
@@ -59,7 +61,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/15bc73803f76bc53b654b9fdbbbc096f56d7c03d",
-                "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d"
+                "reference": "15bc73803f76bc53b654b9fdbbbc096f56d7c03d",
+                "shasum": null
             },
             "type": "bower-asset",
             "license": [
@@ -71,13 +74,14 @@
             "version": "v1.3.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/bestiejs/punycode.js.git",
+                "url": "git@github.com:bestiejs/punycode.js.git",
                 "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/bestiejs/punycode.js/zipball/38c8d3131a82567bfef18da09f7f4db68c84f8a3",
-                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3"
+                "reference": "38c8d3131a82567bfef18da09f7f4db68c84f8a3",
+                "shasum": null
             },
             "type": "bower-asset"
         },
@@ -92,7 +96,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/yiisoft/jquery-pjax/zipball/aef7b953107264f00234902a3880eb50dafc48be",
-                "reference": "aef7b953107264f00234902a3880eb50dafc48be"
+                "reference": "aef7b953107264f00234902a3880eb50dafc48be",
+                "shasum": null
             },
             "require": {
                 "bower-asset/jquery": ">=1.8"
@@ -328,6 +333,64 @@
                 "html"
             ],
             "time": "2019-07-14T18:58:38+00:00"
+        },
+        {
+            "name": "imagine/imagine",
+            "version": "1.2.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/avalanche123/Imagine.git",
+                "reference": "eec39b2092bc8008a92b8d63824476413dbe7511"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/eec39b2092bc8008a92b8d63824476413dbe7511",
+                "reference": "eec39b2092bc8008a92b8d63824476413dbe7511",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.2.*",
+                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.4"
+            },
+            "suggest": {
+                "ext-gd": "to use the GD implementation",
+                "ext-gmagick": "to use the Gmagick implementation",
+                "ext-imagick": "to use the Imagick implementation"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Imagine\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bulat Shakirzyanov",
+                    "email": "mallluhuct@gmail.com",
+                    "homepage": "http://avalanche123.com"
+                }
+            ],
+            "description": "Image processing for PHP 5.3",
+            "homepage": "http://imagine.readthedocs.org/",
+            "keywords": [
+                "drawing",
+                "graphics",
+                "image manipulation",
+                "image processing"
+            ],
+            "time": "2019-07-09T06:55:48+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -843,6 +906,57 @@
                 "yii2"
             ],
             "time": "2019-07-16T13:22:30+00:00"
+        },
+        {
+            "name": "yiisoft/yii2-imagine",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-imagine.git",
+                "reference": "8637f63ee2eb81b7fe1f4c0e16cc8cc474a68bae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-imagine/zipball/8637f63ee2eb81b7fe1f4c0e16cc8cc474a68bae",
+                "reference": "8637f63ee2eb81b7fe1f4c0e16cc8cc474a68bae",
+                "shasum": ""
+            },
+            "require": {
+                "imagine/imagine": "^0.6 | ^0.7 | ^1.0",
+                "yiisoft/yii2": "~2.0.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "<7"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\imagine\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Ramirez",
+                    "email": "amigo.cobos@gmail.com"
+                }
+            ],
+            "description": "The Imagine integration for the Yii framework",
+            "keywords": [
+                "helper",
+                "image",
+                "imagine",
+                "yii2"
+            ],
+            "time": "2019-06-04T12:38:50+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",

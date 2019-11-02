@@ -17,6 +17,10 @@ use Yii;
  */
 class Thumbnails extends \yii\db\ActiveRecord
 {
+    const BIG_TYPE = 'big';
+    const MEDIUM_TYPE = 'medium';
+    const SMALL_TYPE = 'small';
+    
     /**
      * {@inheritdoc}
      */
