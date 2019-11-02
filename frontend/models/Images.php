@@ -40,10 +40,10 @@ class Images extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['origin_name', 'translit_name', 'path', 'width', 'hight', 'size', 'user_id', 'created'], 'required'],
+            [['name', 'origin_name', 'translit_name', 'path', 'width', 'hight', 'size', 'user_id', 'created'], 'required'],
             [['width', 'hight', 'size', 'user_id'], 'integer'],
             [['created'], 'safe'],
-            [['origin_name', 'translit_name', 'path'], 'string', 'max' => 255],
+            [['name', 'origin_name', 'translit_name', 'path'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -55,8 +55,9 @@ class Images extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'origin_name' => 'Origin Name',
+            'name' => 'Name',
             'translit_name' => 'Translit Name',
+            'origin_name' => 'Origin Name',
             'path' => 'Path',
             'width' => 'Width',
             'hight' => 'Hight',

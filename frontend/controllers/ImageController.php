@@ -13,14 +13,16 @@ class ImageController extends Controller
     public function actionUpload()
     {
         $model = new UploadForm();
-
-        if (Yii::$app->request->isPost) {
+        $request = Yii::$app->request;
+        $model->load($request->post());
+        if ($request->isPost) {
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->upload()) {
                 //save image to db
                 $image = new Images();
+                $image->name = $request->post('UploadForm')['name'];
+                $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
                 $image->origin_name = $model->imageFile->baseName;
-                $image->translit_name = \yii\helpers\Inflector::slug($model->imageFile->baseName, '-');
                 $image->path = $model->imagePath;
                 $image->width = $model->getImageParams($model->imagePath)['width'];
                 $image->hight = $model->getImageParams($model->imagePath)['hight'];
@@ -29,9 +31,11 @@ class ImageController extends Controller
                 $image->created = date('Y-m-d H:i:s');
                 if ($image->save()) {
                     echo 'saved!';
+                } else {
+                    echo 'error!';
                 }
-                
-                //var_dump($size = getimagesize($model->dir . $model->imageFile->baseName));die();
+                die();
+                //var_dump(date('Y-m-d H:i:s'));die();
                 return;
             }
         }

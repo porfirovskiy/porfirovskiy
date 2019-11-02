@@ -12,11 +12,14 @@ class UploadForm extends Model
     public $dir = 'images/';
     public $thumbDir = 'thumbnails/';
     public $imagePath;
+    public $name;
 
     public function rules()
     {
         return [
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['name'], 'required', 'message' => 'Please choose a name.'],
+            [['name'], 'string', 'max' => 256],
+            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg']
         ];
     }
     
@@ -27,6 +30,7 @@ class UploadForm extends Model
             $this->imageFile->saveAs($this->imagePath);
             return true;
         } else {
+            var_dump($this->getErrors());die();
             return false;
         }
     }
