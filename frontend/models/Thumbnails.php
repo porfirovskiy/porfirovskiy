@@ -22,6 +22,9 @@ class Thumbnails extends \yii\db\ActiveRecord
     const BIG_TYPE = 'big';
     const MEDIUM_TYPE = 'medium';
     const SMALL_TYPE = 'small';
+    const SMALL_WIDTH = 150;
+    const BIG_WIDTH = 800;
+    
     
     /**
      * {@inheritdoc}
@@ -39,7 +42,7 @@ class Thumbnails extends \yii\db\ActiveRecord
         return [
             [['path', 'size', 'image_id'], 'required'],
             [['type'], 'string'],
-            [['size', 'image_id'], 'integer'],
+            [['size', 'image_id', 'width', 'hight'], 'integer'],
             [['path'], 'string', 'max' => 255],
             [['image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Images::className(), 'targetAttribute' => ['image_id' => 'id']],
         ];
@@ -54,6 +57,8 @@ class Thumbnails extends \yii\db\ActiveRecord
             'id' => 'ID',
             'path' => 'Path',
             'type' => 'Type',
+            'width' => 'Width',
+            'hight' => 'Hight',
             'size' => 'Size',
             'image_id' => 'Image ID',
         ];
@@ -70,14 +75,18 @@ class Thumbnails extends \yii\db\ActiveRecord
     /**
      * 
      * @param UploadForm $model
+     * @param int $imageId
      * @return void
      */
     public function makeThumbnails(UploadForm $model, int $imageId): void 
     {
+        $imageParams = $model->getImageParams($model->imagePath);
         //generate a thumbnail image 150x150
-        $this->generateThumbnail($model, 150, 150, self::SMALL_TYPE, $imageId);
+        $newSmallHight = $this->getProportialHight($imageParams['width'], $imageParams['hight'], self::SMALL_WIDTH);
+        $this->generateThumbnail($model, self::SMALL_WIDTH, $newSmallHight, self::SMALL_TYPE, $imageId);
         //generate a thumbnail image 800x600
-        $this->generateThumbnail($model, 800, 600, self::BIG_TYPE, $imageId);
+        $newBigHight = $this->getProportialHight($imageParams['width'], $imageParams['hight'], self::BIG_WIDTH);
+        $this->generateThumbnail($model, self::BIG_WIDTH, $newBigHight, self::BIG_TYPE, $imageId);
 
         //var_dump($path);die();
     }
@@ -88,20 +97,39 @@ class Thumbnails extends \yii\db\ActiveRecord
      * @param string $width
      * @param string $hight
      * @param string $type
+     * @param int $imageId
      * @return void
      */
     private function generateThumbnail(UploadForm $model, string $width, string $hight, string $type, int $imageId): void 
     {
         $dir = $model->getImageDir($model->thumbDir);
         $path = $dir . $model->imageName . '_' . $type . '.' . $model->imageFile->extension;
-        Image::thumbnail($model->imagePath, $width, $hight)
+        Image::thumbnail($model->imagePath, $width, $hight, \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET)
             ->save($path, ['quality' => 100]);
-        //save info to db    
+        
+        //TODO move saving to db in other method!!!
+        //save thumbnail info to db    
         $thumbnail = new Thumbnails();
         $thumbnail->path = $path;
         $thumbnail->type = $type;
+        $thumbnail->width = $width;
+        $thumbnail->hight = $hight;
         $thumbnail->size = filesize($path);
         $thumbnail->image_id = $imageId;
         $thumbnail->save();
     }
+    
+    /**
+     * 
+     * @param int $originWidth
+     * @param int $originHight
+     * @param int $newWidth
+     * @return int
+     */
+    private function getProportialHight(int $originWidth, int $originHight, int $newWidth): int
+    {
+        $newHight = ($newWidth * $originHight) / $originWidth;
+        return intval(round($newHight));
+    }
+    
 }

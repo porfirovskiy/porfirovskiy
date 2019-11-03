@@ -16,6 +16,8 @@ class m191030_210314_create_thumbnails_table extends Migration
             'id' => $this->primaryKey(),
             'path' => $this->string()->notNull(),
             'type' => 'ENUM("small", "medium", "big")',
+            'width' => $this->smallInteger()->notNull(),
+            'hight' => $this->smallInteger()->notNull(),
             'size' => $this->integer()->notNull(),
             'image_id' => $this->integer()->notNull()
         ]);

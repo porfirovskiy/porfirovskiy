@@ -25,8 +25,9 @@ class ImageController extends Controller
                 $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
                 $image->origin_name = $model->imageFile->baseName;
                 $image->path = str_replace($model->dir, '', $model->imagePath);
-                $image->width = $model->getImageParams($model->imagePath)['width'];
-                $image->hight = $model->getImageParams($model->imagePath)['hight'];
+                $imageParams = $model->getImageParams($model->imagePath);
+                $image->width = $imageParams['width'];
+                $image->hight = $imageParams['hight'];
                 $image->size = $model->imageFile->size;
                 $image->user_id = \Yii::$app->user->identity->id;
                 $image->created = date('Y-m-d H:i:s');
