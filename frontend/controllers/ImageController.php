@@ -7,6 +7,7 @@ use yii\web\Controller;
 use frontend\models\UploadForm;
 use yii\web\UploadedFile;
 use frontend\models\Images;
+use frontend\models\Thumbnails;
 
 class ImageController extends Controller
 {
@@ -32,6 +33,8 @@ class ImageController extends Controller
                 if ($image->save()) {
                     $imageId = $image->getPrimaryKey();
                     $image->saveDescription($request->post('UploadForm')['description'], $imageId);
+                    $thumbnailsModel = new Thumbnails();
+                    $thumbnailsModel->makeThumbnails($model, $imageId);
                     echo 'saved!';
                 } else {
                     echo 'error!';

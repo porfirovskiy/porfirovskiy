@@ -12,6 +12,7 @@ class UploadForm extends Model
     public $dir = 'images/';
     public $thumbDir = 'thumbnails/';
     public $imagePath;
+    public $imageName;
     public $name;
     public $description;
 
@@ -28,7 +29,8 @@ class UploadForm extends Model
     public function upload()
     {
         if ($this->validate()) {
-            $this->imagePath = $this->getImageDir(). $this->getUniqName() . '.' . $this->imageFile->extension;
+            $this->imageName = $this->getUniqName();
+            $this->imagePath = $this->getImageDir($this->dir). $this->imageName . '.' . $this->imageFile->extension;
             $this->imageFile->saveAs($this->imagePath);
             return true;
         } else {
@@ -42,11 +44,11 @@ class UploadForm extends Model
      * Пример images/2019/11/02
      * @return string
      */
-    public function getImageDir(): string {
-        $absoluteDirYear = \Yii::getAlias('@webroot') . '/' . $this->dir . date('Y');
+    public function getImageDir(string $dir): string {
+        $absoluteDirYear = \Yii::getAlias('@webroot') . '/' . $dir . date('Y');
         $absoluteDirMonth = $absoluteDirYear . '/' . date('m');
         $absoluteDirDay = $absoluteDirMonth . '/' . date('d');
-        $currentDir = $this->dir . date('Y'). '/' . date('m'). '/' . date('d') . '/';
+        $currentDir = $dir . date('Y'). '/' . date('m'). '/' . date('d') . '/';
         if (!file_exists($absoluteDirYear)) {
             mkdir($absoluteDirYear);
             mkdir($absoluteDirMonth);

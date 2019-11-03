@@ -3,6 +3,8 @@
 namespace frontend\models;
 
 use Yii;
+use yii\imagine\Image;
+use frontend\models\UploadForm;
 
 /**
  * This is the model class for table "thumbnails".
@@ -63,5 +65,43 @@ class Thumbnails extends \yii\db\ActiveRecord
     public function getImage()
     {
         return $this->hasOne(Images::className(), ['id' => 'image_id']);
+    }
+    
+    /**
+     * 
+     * @param UploadForm $model
+     * @return void
+     */
+    public function makeThumbnails(UploadForm $model, int $imageId): void 
+    {
+        //generate a thumbnail image 150x150
+        $this->generateThumbnail($model, 150, 150, self::SMALL_TYPE, $imageId);
+        //generate a thumbnail image 800x600
+        $this->generateThumbnail($model, 800, 600, self::BIG_TYPE, $imageId);
+
+        //var_dump($path);die();
+    }
+        
+    /**
+     * 
+     * @param UploadForm $model
+     * @param string $width
+     * @param string $hight
+     * @param string $type
+     * @return void
+     */
+    private function generateThumbnail(UploadForm $model, string $width, string $hight, string $type, int $imageId): void 
+    {
+        $dir = $model->getImageDir($model->thumbDir);
+        $path = $dir . $model->imageName . '_' . $type . '.' . $model->imageFile->extension;
+        Image::thumbnail($model->imagePath, $width, $hight)
+            ->save($path, ['quality' => 100]);
+        //save info to db    
+        $thumbnail = new Thumbnails();
+        $thumbnail->path = $path;
+        $thumbnail->type = $type;
+        $thumbnail->size = filesize($path);
+        $thumbnail->image_id = $imageId;
+        $thumbnail->save();
     }
 }
