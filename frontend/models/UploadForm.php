@@ -63,7 +63,7 @@ class UploadForm extends Model
     }
     
     private function getUniqName(): string {
-        return uniqid();
+        return bin2hex(random_bytes(10));
     }
     
     public function getImageParams(string $image): array {

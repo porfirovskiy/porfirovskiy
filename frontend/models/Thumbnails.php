@@ -24,6 +24,7 @@ class Thumbnails extends \yii\db\ActiveRecord
     const SMALL_TYPE = 'small';
     const SMALL_WIDTH = 150;
     const BIG_WIDTH = 800;
+    const THUMBNAIL_QUALITY = 100;
     
     
     /**
@@ -105,7 +106,7 @@ class Thumbnails extends \yii\db\ActiveRecord
         $dir = $model->getImageDir($model->thumbDir);
         $path = $dir . $model->imageName . '_' . $type . '.' . $model->imageFile->extension;
         Image::thumbnail($model->imagePath, $width, $hight, \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET)
-            ->save($path, ['quality' => 100]);
+            ->save($path, ['quality' => self::THUMBNAIL_QUALITY]);
         
         //TODO move saving to db in other method!!!
         //save thumbnail info to db    

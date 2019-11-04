@@ -8,6 +8,8 @@ use frontend\models\UploadForm;
 use yii\web\UploadedFile;
 use frontend\models\Images;
 use frontend\models\Thumbnails;
+use yii\imagine\Image;
+use Imagine\Image\Metadata\ExifMetadataReader;
 
 class ImageController extends Controller
 {
@@ -19,6 +21,14 @@ class ImageController extends Controller
         if ($request->isPost) {
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->upload()) {
+                
+                //!!!!!!!!!! EXIF 
+                /*$image1 = Image::getImagine();
+                $image11 = $image1->setMetadataReader(new ExifMetadataReader())->open($model->imagePath);
+                $metadata = $image11->metadata();
+                echo '<pre>';var_dump($metadata->toArray());die();*/
+                //!!!!!!!!! EXIF
+                
                 //save image to db
                 $image = new Images();
                 $image->name = $request->post('UploadForm')['name'];
