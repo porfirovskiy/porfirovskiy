@@ -8,8 +8,7 @@ use frontend\models\UploadForm;
 use yii\web\UploadedFile;
 use frontend\models\Images;
 use frontend\models\Thumbnails;
-use yii\imagine\Image;
-use Imagine\Image\Metadata\ExifMetadataReader;
+use frontend\models\Exif;
 
 class ImageController extends Controller
 {
@@ -20,16 +19,8 @@ class ImageController extends Controller
         $model->load($request->post());
         if ($request->isPost) {
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-            if ($model->upload()) {
-                
-                //!!!!!!!!!! EXIF 
-                /*$image1 = Image::getImagine();
-                $image11 = $image1->setMetadataReader(new ExifMetadataReader())->open($model->imagePath);
-                $metadata = $image11->metadata();
-                echo '<pre>';var_dump($metadata->toArray());die();*/
-                //!!!!!!!!! EXIF
-                
-                //save image to db
+            if ($model->upload()) {                               
+                //save image data to db
                 $image = new Images();
                 $image->name = $request->post('UploadForm')['name'];
                 $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
@@ -43,7 +34,12 @@ class ImageController extends Controller
                 $image->created = date('Y-m-d H:i:s');
                 if ($image->save()) {
                     $imageId = $image->getPrimaryKey();
+                    //save image exif to db
+                    $exifModel = new Exif();
+                    $exifModel->saveData($model->imagePath, $imageId);
+                    //save description
                     $image->saveDescription($request->post('UploadForm')['description'], $imageId);
+                    //make thumbnails
                     $thumbnailsModel = new Thumbnails();
                     $thumbnailsModel->makeThumbnails($model, $imageId);
                     echo 'saved!';

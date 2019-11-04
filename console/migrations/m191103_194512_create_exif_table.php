@@ -14,11 +14,12 @@ class m191103_194512_create_exif_table extends Migration
     {
         $this->createTable('{{%exif}}', [
             'id' => $this->primaryKey(),
+            'data' => $this->text()->notNull(),
             'image_id' => $this->integer()->notNull(),
         ]);
         
         $this->addForeignKey(
-            'fkCommentsImageId',
+            'fkExifImageId',
             'exif',
             'image_id',
             'images',

@@ -22,7 +22,13 @@ class UploadForm extends Model
             [['name'], 'required', 'message' => 'Please choose a name.'],
             [['name'], 'string', 'max' => 255],
             [['description'], 'string'],
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg']
+            [
+                ['imageFile'],
+                'file',
+                'skipOnEmpty' => false,
+                'extensions' => 'png, jpg',
+                'maxSize' => 1024*1024*12
+            ]
         ];
     }
     
