@@ -7,6 +7,7 @@ use yii\web\Controller;
 use frontend\models\UploadForm;
 use yii\web\UploadedFile;
 use frontend\models\Images;
+use frontend\models\Tags;
 use frontend\models\Thumbnails;
 use frontend\models\Exif;
 
@@ -18,12 +19,11 @@ class ImageController extends Controller
         $request = Yii::$app->request;
         $model->load($request->post());
         if ($request->isPost) {
-            var_dump($model->tags);die();
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->upload()) {                               
                 //save image data to db
                 $image = new Images();
-                $image->name = $request->post('UploadForm')['name'];
+                $image->name = $model->name;
                 $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
                 $image->origin_name = $model->imageFile->baseName;
                 $image->path = str_replace($model->dir, '', $model->imagePath);
@@ -35,11 +35,14 @@ class ImageController extends Controller
                 $image->created = date('Y-m-d H:i:s');
                 if ($image->save()) {
                     $imageId = $image->getPrimaryKey();
+                    //save tags to db
+                    $tagsModel = new Tags();
+                    $tagsModel->saveImagesTags($model->tags, $imageId);
                     //save image exif to db
                     $exifModel = new Exif();
                     $exifModel->saveData($model->imagePath, $imageId);
                     //save description
-                    $image->saveDescription($request->post('UploadForm')['description'], $imageId);
+                    $image->saveDescription($model->description, $imageId);
                     //make thumbnails
                     $thumbnailsModel = new Thumbnails();
                     $thumbnailsModel->makeThumbnails($model, $imageId);

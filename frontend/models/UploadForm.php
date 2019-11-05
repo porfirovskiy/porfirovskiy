@@ -23,7 +23,7 @@ class UploadForm extends Model
             [['name'], 'required', 'message' => 'Please choose a name.'],
             [['name'], 'string', 'max' => 255],
             [['description'], 'string'],
-            [['tags'], 'string'],
+            [['tags'], 'safe'],
             [
                 ['imageFile'],
                 'file',

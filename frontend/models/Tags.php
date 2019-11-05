@@ -51,4 +51,28 @@ class Tags extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ImagesTags::className(), ['tag_id' => 'id']);
     }
+    
+    /**
+     * 
+     * @param array $tags
+     * @param string $imageId
+     * @return void
+     */
+    public function saveImagesTags(array $tags, string $imageId): void 
+    {
+        $splitedTags = $this->splitTags($tags, $imageId);
+        if (isset($splitedTags['new']) && !empty($splitedTags['new'])) {
+            $this->saveTags($splitedTags['new'], $imageId);
+        }
+    }
+    
+    public function saveTags(array $tags, string $imageId): void 
+    {
+        
+    }
+    
+    public function splitTags(array $tags, string $imageId): void 
+    {
+        
+    }
 }

@@ -14,7 +14,7 @@
     
 <?=
     $form->field($model, 'tags')->widget(Select2::classname(), [
-        'name' => 'kv-repo-template',
+        'name' => 'tags',
         'options' => [
             'placeholder' => 'input tags',
             'multiple' => true,
@@ -37,10 +37,7 @@
                       })
                     };
                   }'),
-            ],
-            //'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
-            //'templateResult' => new JsExpression('function(tag) { return tag.name; }'),
-            //'templateSelection' => new JsExpression('function (tag) { return tag.name; }'),
+            ]
         ],
     ])
     ?>
