@@ -18,6 +18,7 @@ class ImageController extends Controller
         $request = Yii::$app->request;
         $model->load($request->post());
         if ($request->isPost) {
+            var_dump($model->tags);die();
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->upload()) {                               
                 //save image data to db

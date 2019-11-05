@@ -15,6 +15,7 @@ class UploadForm extends Model
     public $imageName;
     public $name;
     public $description;
+    public $tags;
 
     public function rules()
     {
@@ -22,6 +23,7 @@ class UploadForm extends Model
             [['name'], 'required', 'message' => 'Please choose a name.'],
             [['name'], 'string', 'max' => 255],
             [['description'], 'string'],
+            [['tags'], 'string'],
             [
                 ['imageFile'],
                 'file',
