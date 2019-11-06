@@ -15,6 +15,7 @@ class ImageController extends Controller
 {
     public function actionUpload()
     {
+        //echo sha1_file(__DIR__.'/ImageController.php');
         $model = new UploadForm();
         $request = Yii::$app->request;
         $model->load($request->post());

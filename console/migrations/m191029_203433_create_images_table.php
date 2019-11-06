@@ -17,12 +17,15 @@ class m191029_203433_create_images_table extends Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
+        
+        // Проверка на дубликаты по хешу!!!!!
         $this->createTable('{{%images}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
             'translit_name' => $this->string()->notNull(),
             'origin_name' => $this->string()->notNull(),
             'path' => $this->string()->notNull(),
+            'hash' => $this->string(40)->notNull(),
             'source' => $this->string()->null(),
             'width' => $this->smallInteger()->notNull(),
             'hight' => $this->smallInteger()->notNull(),
