@@ -60,6 +60,10 @@ class Tags extends \yii\db\ActiveRecord
      */
     public function saveImagesTags(array $tags, string $imageId): void 
     {
+        foreach ($tags as $tag) {
+            //$value = (int)$tag;
+        }
+        echo '<pre>';var_dump($tags, $imageId);die();
         $splitedTags = $this->splitTags($tags, $imageId);
         if (isset($splitedTags['new']) && !empty($splitedTags['new'])) {
             $this->saveTags($splitedTags['new'], $imageId);

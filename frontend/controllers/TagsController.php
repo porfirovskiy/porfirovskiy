@@ -2,6 +2,8 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Tags;
+
 class TagsController extends \yii\web\Controller
 {
     public function actionIndex()
@@ -13,7 +15,12 @@ class TagsController extends \yii\web\Controller
     public function actionAutocomplete(string $q)
     {   
         if(\Yii::$app->request->isAjax) {
-            return json_encode([['id' => 1, 'text' => 'test']]);
+            $tags = Tags::find()
+                ->select('title AS id, title AS text')
+                ->where(['like', 'title', $q])
+                ->asArray()
+                ->all();
+            return json_encode($tags);
         }
     }
 

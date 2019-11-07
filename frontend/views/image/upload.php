@@ -23,6 +23,7 @@
             'tags' => true,
             'allowClear' => true,
             'minimumInputLength' => 3,
+            'maximumSelectionLength' => 3,
             'ajax' => [
                 'url' => Url::to('/tags/autocomplete'),
                 'dataType' => 'json',
@@ -38,7 +39,7 @@
                     };
                   }'),
             ]
-        ],
+        ]
     ])
     ?>
 
