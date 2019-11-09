@@ -40,7 +40,7 @@ class Images extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'origin_name', 'translit_name', 'path', 'width', 'hight', 'size', 'user_id', 'created'], 'required'],
+            [['name', 'origin_name', 'translit_name', 'path', 'width', 'hight', 'size', 'user_id', 'created', 'hash'], 'required'],
             [['width', 'hight', 'size', 'user_id'], 'integer'],
             [['created', 'source'], 'safe'],
             [['name', 'origin_name', 'translit_name', 'path', 'source'], 'string', 'max' => 255],

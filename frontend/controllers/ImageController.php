@@ -15,7 +15,6 @@ class ImageController extends Controller
 {
     public function actionUpload()
     {
-        //echo sha1_file(__DIR__.'/ImageController.php');
         $model = new UploadForm();
         $request = Yii::$app->request;
         $model->load($request->post());
@@ -28,6 +27,7 @@ class ImageController extends Controller
                 $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
                 $image->origin_name = $model->imageFile->baseName;
                 $image->path = str_replace($model->dir, '', $model->imagePath);
+                $image->hash = $model->hash;
                 $imageParams = $model->getImageParams($model->imagePath);
                 $image->width = $imageParams['width'];
                 $image->hight = $imageParams['hight'];

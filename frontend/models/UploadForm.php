@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use yii\base\Model;
 use yii\web\UploadedFile;
+use frontend\models\Images;
 
 class UploadForm extends Model
 {
@@ -16,6 +17,7 @@ class UploadForm extends Model
     public $name;
     public $description;
     public $tags;
+    public $hash;
 
     public function rules()
     {
@@ -23,9 +25,8 @@ class UploadForm extends Model
             [['name'], 'required', 'message' => 'Please choose a name.'],
             [['name'], 'string', 'max' => 255],
             [['description'], 'string'],
-            [['tags'], 'safe'],
-            //[['tags'], 'required'],
-            //[['tags'], 'integer'],
+            [['hash'], 'unique', 'targetClass' => 'frontend\models\Images'],
+            [['tags'], 'required', 'message' => 'Please choose a tags.'],
             [
                 ['imageFile'],
                 'file',
@@ -38,6 +39,7 @@ class UploadForm extends Model
     
     public function upload()
     {
+        $this->hash = sha1_file($this->imageFile->tempName);
         if ($this->validate()) {
             $this->imageName = $this->getUniqName();
             $this->imagePath = $this->getImageDir($this->dir). $this->imageName . '.' . $this->imageFile->extension;
@@ -84,8 +86,4 @@ class UploadForm extends Model
          ];
     }
     
-    
-    public function makeThumbnail() {
-        
-    }
 }

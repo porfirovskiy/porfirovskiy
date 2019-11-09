@@ -5,7 +5,10 @@
     use yii\helpers\Url;
 ?>
 
-<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]) ?>
+<?php $form = ActiveForm::begin([
+        //'enableAjaxValidation' => true, 
+        'options' => ['enctype' => 'multipart/form-data']
+    ]) ?>
 
     <?= $form->field($model, 'imageFile')->fileInput() ?>
     
@@ -19,6 +22,7 @@
             'placeholder' => 'input tags',
             'multiple' => true,
         ],
+        'data' => ['id' => 1, 'name' => 'test'],
         'pluginOptions' => [
             'tags' => true,
             'initialize' => true,
