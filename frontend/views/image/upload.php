@@ -21,6 +21,7 @@
         ],
         'pluginOptions' => [
             'tags' => true,
+            'initialize' => true,
             'allowClear' => true,
             'minimumInputLength' => 3,
             'maximumSelectionLength' => 3,

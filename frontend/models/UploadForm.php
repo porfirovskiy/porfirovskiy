@@ -24,6 +24,8 @@ class UploadForm extends Model
             [['name'], 'string', 'max' => 255],
             [['description'], 'string'],
             [['tags'], 'safe'],
+            //[['tags'], 'required'],
+            //[['tags'], 'integer'],
             [
                 ['imageFile'],
                 'file',

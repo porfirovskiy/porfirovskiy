@@ -18,6 +18,7 @@ class TagsController extends \yii\web\Controller
             $tags = Tags::find()
                 ->select('title AS id, title AS text')
                 ->where(['like', 'title', $q])
+                ->limit(10)
                 ->asArray()
                 ->all();
             return json_encode($tags);

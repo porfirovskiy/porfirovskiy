@@ -38,7 +38,7 @@ class ImageController extends Controller
                     $imageId = $image->getPrimaryKey();
                     //save tags to db
                     $tagsModel = new Tags();
-                    $tagsModel->saveImagesTags($model->tags, $imageId);
+                    $tagsModel->saveImageTags($model->tags, $imageId);
                     //save image exif to db
                     $exifModel = new Exif();
                     $exifModel->saveData($model->imagePath, $imageId);

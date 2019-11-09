@@ -4,6 +4,9 @@ namespace frontend\models;
 
 use Yii;
 
+use yii\helpers\ArrayHelper;
+use frontend\models\ImagesTags;
+
 /**
  * This is the model class for table "tags".
  *
@@ -51,32 +54,80 @@ class Tags extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ImagesTags::className(), ['tag_id' => 'id']);
     }
-    
+
     /**
-     * 
+     *
      * @param array $tags
      * @param string $imageId
      * @return void
      */
-    public function saveImagesTags(array $tags, string $imageId): void 
+    public function saveImageTags(array $tags, int $imageId): void
     {
-        foreach ($tags as $tag) {
-            //$value = (int)$tag;
+        $tagsIds = [];
+        $existTags = $this->getByTitles($tags);
+        $diff = $this->getDiffTags($tags, $existTags);
+        if (!empty($diff)) {
+            foreach ($diff as $tag) {
+                $tagModel = new Tags();
+                $tagModel->title = $tag;
+                $tagModel->save();
+                $tagsIds[] = $tagModel->getPrimaryKey();
+            }
         }
-        echo '<pre>';var_dump($tags, $imageId);die();
-        $splitedTags = $this->splitTags($tags, $imageId);
-        if (isset($splitedTags['new']) && !empty($splitedTags['new'])) {
-            $this->saveTags($splitedTags['new'], $imageId);
-        }
+        $tagsIds = $this->mergeTagsIds($tagsIds, $existTags);
+        $this->saveImageTagsRecords($tagsIds, $imageId);
     }
     
-    public function saveTags(array $tags, string $imageId): void 
-    {
-        
+    /**
+     * 
+     * @param array $tagsIds
+     * @param array $imageId
+     * @return void
+     */
+    public function saveImageTagsRecords(array $tagsIds, int $imageId): void {
+        foreach ($tagsIds as $tagId) {
+            $model = new ImagesTags();
+            $model->image_id = $imageId;
+            $model->tag_id = $tagId;
+            $model->save();
+        }
     }
-    
-    public function splitTags(array $tags, string $imageId): void 
+
+    /**
+     * 
+     * @param array $ids
+     * @param array $existTags
+     * @return array
+     */
+    public function mergeTagsIds(array $ids, array $existTags): array
     {
-        
+        $existIds = ArrayHelper::getColumn($existTags, function ($element) {
+            return (int)$element['id'];
+        });
+        return array_merge($ids, $existIds);
+    }
+
+    /**
+     * 
+     * @param array $tags
+     * @param array $existTags
+     * @return array
+     */
+    public function getDiffTags(array $tags, array $existTags): array
+    {
+        return array_diff($tags, ArrayHelper::getColumn($existTags, 'title'));
+    }
+
+    /**
+     * 
+     * @param array $titles
+     * @return array
+     */
+    public function getByTitles(array $titles): array {
+        return self::find()
+                ->select('title, id')
+                ->where(['in', 'title', $titles])
+                ->asArray()
+                ->all();
     }
 }
