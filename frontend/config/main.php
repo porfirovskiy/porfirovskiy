@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
+    'name' => 'Img.Net',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
@@ -46,7 +47,6 @@ return [
                 'defaultRoute' => '/site/index',
             ],
         ],
-        
     ],
     'params' => $params,
 ];

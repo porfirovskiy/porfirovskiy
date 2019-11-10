@@ -4,13 +4,18 @@
 
 use yii\helpers\Html;
 
-$this->title = 'About';
+$this->title = \Yii::t('common', 'About');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>This is the About page. You may modify the following file to customize its content:</p>
+    <br>
+    <p>
+        Сайт создан для хранения изображений и показу их пользователям.
+    </p>
+    <p>
+        Изображения привязаны к тегам, что дает привязку к определенной тематике.
+    </p>
 
-    <code><?= __FILE__ ?></code>
 </div>

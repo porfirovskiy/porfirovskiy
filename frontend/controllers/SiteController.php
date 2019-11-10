@@ -142,6 +142,7 @@ class SiteController extends Controller
      */
     public function actionAbout()
     {
+        //var_dump(\Yii::$app->language);die();
         return $this->render('about');
     }
 
