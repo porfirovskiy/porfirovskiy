@@ -36,7 +36,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => \Yii::t('common', 'Home'), 'url' => ['/site/index']],
+        ['label' => \Yii::t('common', 'Home'), 'url' => ['/']],
         ['label' => \Yii::t('common', 'About'), 'url' => ['/site/about']],
         ['label' => \Yii::t('common', 'Contact'), 'url' => ['/site/contact']],
     ];

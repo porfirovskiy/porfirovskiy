@@ -47,6 +47,19 @@ return [
                 'defaultRoute' => '/site/index',
             ],
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'viewPath' => '@common/mail',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'porfirovskiy@gmail.com',
+                'password' => '1zx23cv45b',
+                'port' => '587',
+                'encryption' => 'tls',
+            ],
+            'useFileTransport' => False,
+        ],
     ],
     'params' => $params,
 ];

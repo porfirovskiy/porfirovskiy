@@ -44,6 +44,7 @@ class SignupForm extends Model
      */
     public function signup()
     {
+        
         if (!$this->validate()) {
             return null;
         }
@@ -72,8 +73,8 @@ class SignupForm extends Model
                 ['user' => $user]
             )
             ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-            ->setTo($this->email)
+            ->setTo('img2user@gmail.com')
             ->setSubject('Account registration at ' . Yii::$app->name)
-            ->send();
+            ->send();  
     }
 }
