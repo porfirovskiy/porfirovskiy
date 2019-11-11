@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div style="color:#999;margin:1em 0">
                     <?= Yii::t('common', 'If you forgot your password you can')?> <?= Html::a('reset it', ['site/request-password-reset']) ?>.
                     <br>
-                    Need new verification email? <?= Html::a('Resend', ['site/resend-verification-email']) ?>
+                    <?= Yii::t('common', 'Need new verification email?')?> <?= Html::a('Resend', ['site/resend-verification-email']) ?>
                 </div>
 
                 <div class="form-group">

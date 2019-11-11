@@ -4,6 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\base\Model;
+use frontend\models\Contacts;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -48,14 +49,13 @@ class ContactForm extends Model
      * @param string $email the target email address
      * @return bool whether the email was sent
      */
-    public function sendEmail($email)
+    public function saveContact()
     {
-        return Yii::$app->mailer->compose()
-            ->setTo($email)
-            ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
-            ->setReplyTo([$this->email => $this->name])
-            ->setSubject($this->subject)
-            ->setTextBody($this->body)
-            ->send();
+        $model = new Contacts();
+        $model->name = $this->name;
+        $model->email = $this->email;
+        $model->subject = $this->subject;
+        $model->body = $this->body;
+        return $model->save();
     }
 }
