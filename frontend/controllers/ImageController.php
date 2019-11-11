@@ -10,9 +10,28 @@ use frontend\models\Images;
 use frontend\models\Tags;
 use frontend\models\Thumbnails;
 use frontend\models\Exif;
+use yii\filters\AccessControl;
 
 class ImageController extends Controller
 {
+    
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['upload'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['upload'],
+                        'roles' => ['@'],
+                    ]
+                ],
+            ],
+        ];
+    }
+    
     public function actionUpload()
     {
         $model = new UploadForm();

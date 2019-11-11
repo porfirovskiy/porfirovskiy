@@ -32,14 +32,18 @@ class ContactForm extends Model
             ['verifyCode', 'captcha'],
         ];
     }
-
+    
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'name' => Yii::t('common', 'Name'),
+            'email' => Yii::t('common', 'Email'),
+            'subject' => Yii::t('common', 'Subject'),
+            'body' => Yii::t('common', 'Body'),
+            'verifyCode' => Yii::t('common', 'Verification Code')
         ];
     }
 
