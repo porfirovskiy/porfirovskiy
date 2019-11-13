@@ -78,4 +78,15 @@ class ImageController extends Controller
 
         return $this->render('upload', ['model' => $model]);
     }
+    
+    public function actionView(int $id) 
+    {
+        //$image = Images::find(['id' => $id])->asArray()->one();
+        $image = Images::findOne($id);
+        $thumbnail = Thumbnails::find()->where(['image_id' => $id])
+            ->andWhere(['type' => Thumbnails::BIG_TYPE])->one();
+        //echo '<pre>';var_dump($thumbnail);die();
+        return $this->render('view', ['image' => $image, 'thumbnail' => $thumbnail]);
+    }
+    
 }
