@@ -9,8 +9,11 @@ use yii\web\UploadedFile;
 use frontend\models\Images;
 use frontend\models\Tags;
 use frontend\models\Thumbnails;
+use frontend\models\ImagesTags;
 use frontend\models\Exif;
+use frontend\models\Descriptions;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 
 class ImageController extends Controller
 {
@@ -85,8 +88,21 @@ class ImageController extends Controller
         $image = Images::findOne($id);
         $thumbnail = Thumbnails::find()->where(['image_id' => $id])
             ->andWhere(['type' => Thumbnails::BIG_TYPE])->one();
-        //echo '<pre>';var_dump($thumbnail);die();
-        return $this->render('view', ['image' => $image, 'thumbnail' => $thumbnail]);
+        $tags = ImagesTags::find()
+                ->select('tags.title')
+                ->leftJoin('tags', 'tags.id = images_tags.tag_id')
+                ->where(['images_tags.image_id' => $id])
+                ->asArray()
+                ->all();
+        $tags = ArrayHelper::getColumn($tags, 'title');
+        $description = Descriptions::find()->select('text')->where(['image_id' => $id])->one();
+        //echo '<pre>';var_dump($description);die();
+        return $this->render('view', [
+            'image' => $image,
+            'thumbnail' => $thumbnail,
+            'tags' => $tags,
+            'description' => $description
+        ]);
     }
     
 }
