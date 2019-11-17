@@ -10,7 +10,18 @@ class TagsController extends \yii\web\Controller
     {
         return $this->render('index');
     }
-    
+
+    public function actionView(string $title)
+    {
+        /*$images = ImagesTags::find()
+                ->select('tags.title')
+                ->leftJoin('images', 'images.id = images_tags.image_id')
+                ->where(['images_tags.image_id' => $id])
+                ->asArray()
+                ->all();
+        $images = ArrayHelper::getColumn($images, 'title');*/
+        return $this->render('view');
+    }
     
     public function actionAutocomplete(string $q)
     {   

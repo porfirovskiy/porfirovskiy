@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=\Yii::t('common', 'Tags')?>:
             </span>
             <?php foreach($tags as $tag): ?>
-            <?= Html::a($tag, ['@web/tag/' . $tag]) ?>
+            <?= Html::a($tag, ['@web/tags/' . $tag]) ?>
             <?php endforeach; ?>
         </div>
 

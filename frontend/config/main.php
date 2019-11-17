@@ -41,10 +41,10 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 'defaultRoute' => '/site/index',
+                'image/<id:\d+>-\w+' => 'image/view',
+                'tags' => 'tags/index',
+                'tags/<title:\w+>' => 'tags/view'
             ],
         ],
         'mailer' => [
