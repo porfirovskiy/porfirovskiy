@@ -21,4 +21,13 @@ return [
     'Request password reset' => 'Запрос сброса пароля',
     'Please fill out your email. A link to reset password will be sent there.' => 'Заполните свой email. Вам вышлется ссылка для сброса пароля.',
     'Send' => 'Отправить',
+    'Images' => 'Изображения',
+    'Full size' => 'Полный размер',
+    'Tags' => 'Теги',
+    'Width x Hight' => 'Ширина х Высота',
+    'Size in Kb' => 'Размер в Кб',
+    'Origin name' => 'Оригинальное имя',
+    'Description' => 'Описание',
+    'Source' => 'Источник',
+    
 ];

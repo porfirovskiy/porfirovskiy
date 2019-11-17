@@ -5,47 +5,81 @@
 use yii\helpers\Html;
 
 $this->title = $image->name;
+$this->params['breadcrumbs'][] = \Yii::t('common', 'Images');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+  <style>
+      .image {
+          text-align: center;
+      }
+    .image-params {
+        color: gray;
+    }
+    .image-params-wrapper {
+        text-align: left;
+    }
+    .image-description {
+        text-align: justify;
+        display: inline-block;
+    }
+    .params-main-wrapper {
+        width: 70%;
+        margin: 0 auto;
+    }
+    .image-description-wrapper {
+        width: 70%;
+        margin: 0 auto;
+    }
+  </style>
+
 <div class="site-about">
 
-    <h1 style="text-align: center;"><?= Html::encode($image->name) ?></h1>
+    <h1 class="image"><?= Html::encode($image->name) ?></h1>
 
-    <div style="text-align: center;">
+    <div class="image">
         <?= Html::img('@web/' . $thumbnail->path, ['alt' => 'Наш логотип']) ?>
     </div>
     
-    <div style="text-align: center;">
-        <?= Html::a(\Yii::t('common', 'Full size'), ['@web/images/' . $image->path]) ?>
-    </div>
-        
-    <div style="text-align: center;">
-        Source: <?= $image->source ?>
+    <br>
+    <div class="params-main-wrapper">
+        <div class="image-params-wrapper">
+            <?= Html::a(\Yii::t('common', 'Full size'), ['@web/images/' . $image->path]) ?>
+        </div>
+
+        <div class="image-params-wrapper">
+            <span class="image-params"><?=\Yii::t('common', 'Source')?>:</span> <?= $image->source ? $image->source : 'empty' ?>
+        </div>
+
+        <div class="image-params-wrapper">
+            <span class="image-params">
+                <?=\Yii::t('common', 'Tags')?>:
+            </span>
+            <?php foreach($tags as $tag): ?>
+            <?= Html::a($tag, ['@web/tag/' . $tag]) ?>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="image-params-wrapper">
+            <span class="image-params"><?=\Yii::t('common', 'Width x Hight')?>:</span> <?= $image->width . 'x' . $image->hight ?>
+        </div>
+
+        <div class="image-params-wrapper">
+            <span class="image-params"><?=\Yii::t('common', 'Size in Kb')?>:</span> <?= round($image->size/1024) ?>
+        </div>
+
+        <div class="image-params-wrapper">
+            <span class="image-params"><?=\Yii::t('common', 'Origin name')?>:</span> <?= $image->origin_name ?>
+        </div>
     </div>
     
-    <div style="text-align: center;">
-        Tags:
-        <?php foreach($tags as $tag): ?>
-        <?= Html::a('#' . $tag, ['@web/tag/' . $tag]) ?>
-        <?php endforeach; ?>
-    </div>
-    
-    <div style="text-align: center;">
-        Width x Hight: <?= $image->width . 'x' . $image->hight ?>
-    </div>
-   
-    <div style="text-align: center;">
-        Size in bytes: <?= $image->size ?>
-    </div>
-    
-    <div style="text-align: center;">
-        Origin name: <?= $image->origin_name ?>
-    </div>
-    
-    <div style="text-align: center;">
-        Description:
+    <br>
+    <div class="image-description-wrapper">
+        <span class="image-params"><?=\Yii::t('common', 'Description')?>:</span>
         <br>
-        <?= $description->text ?>
+        <span class="image-description">
+            <?= $description->text ?>
+        </span>
     </div>
 
 </div>
