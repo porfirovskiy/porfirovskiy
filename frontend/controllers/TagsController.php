@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use frontend\models\Tags;
+use frontend\models\Images;
 
 class TagsController extends \yii\web\Controller
 {
@@ -13,13 +14,15 @@ class TagsController extends \yii\web\Controller
 
     public function actionView(string $title)
     {
-        /*$images = ImagesTags::find()
-                ->select('tags.title')
-                ->leftJoin('images', 'images.id = images_tags.image_id')
-                ->where(['images_tags.image_id' => $id])
+        $images = Images::find()
+                ->select('images.*')
+                ->leftJoin('images_tags', 'images_tags.image_id = images.id')
+                ->leftJoin('tags', 'tags.id = images_tags.tag_id')
+                ->where(['tags.title' => $title])
                 ->asArray()
                 ->all();
-        $images = ArrayHelper::getColumn($images, 'title');*/
+        echo '<pre>';var_dump($images);die();
+        //$images = ArrayHelper::getColumn($images, 'title');
         return $this->render('view');
     }
     
