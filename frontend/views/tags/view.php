@@ -1,9 +1,15 @@
 <?php
 /* @var $this yii\web\View */
-?>
-<h1>tags/view</h1>
 
-<p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
-</p>
+use yii\helpers\Html;
+
+?>
+Tag <h1> <?= $title ?></h1>
+
+<?php foreach($images as $image): ?>
+    <div class="image">
+        <?= Html::img('@web/' . $image['tpath'], ['alt' => 'Наш логотип']) ?>
+        <br>
+        <?= Html::a(\Yii::t('common', $image['name']), ['image/' . $image['id'] . '-' . $image['translit_name']]) ?>
+    </div>
+<?php endforeach; ?>

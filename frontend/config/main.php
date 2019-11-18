@@ -42,9 +42,10 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'defaultRoute' => '/site/index',
-                'image/<id:\d+>-\w+' => 'image/view',
+                //'image/<id:\d+>-\w+' => 'image/view',
+                'image/<id:\d+>-<name:.+>' => 'image/view',
                 'tags' => 'tags/index',
-                'tags/<title:\w+>' => 'tags/view'
+                'tag/<title:\w+>' => 'tags/view'
             ],
         ],
         'mailer' => [
