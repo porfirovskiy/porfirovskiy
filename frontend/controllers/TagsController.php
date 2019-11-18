@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use frontend\models\Tags;
 use frontend\models\Images;
 use frontend\models\Thumbnails;
+use yii\data\Pagination;
 
 class TagsController extends \yii\web\Controller
 {
@@ -15,18 +16,25 @@ class TagsController extends \yii\web\Controller
 
     public function actionView(string $title)
     {
-        
-        $images = \Yii::$app->db->createCommand('
-            SELECT i.name ,i.translit_name, i.id, t.path AS tpath FROM images i 
-            JOIN thumbnails t ON t.image_id = i.id
-            JOIN images_tags it ON it.image_id = i.id
-            JOIN tags tg ON tg.id = it.tag_id
-            WHERE tg.title=:title AND t.type=:type')
-           ->bindValue(':title', $title)
-           ->bindValue(':type', Thumbnails::SMALL_TYPE)
-           ->queryAll();
-        //echo '<pre>';var_dump($images);die();
-        return $this->render('view', ['images' => $images, 'title' => $title]);
+        $query = Images::find()
+            ->select('images.name, images.translit_name, images.id, thumbnails.path')
+            ->leftJoin('thumbnails', 'thumbnails.image_id = images.id')
+            ->leftJoin('images_tags', 'images_tags.image_id = images.id')
+            ->leftJoin('tags', 'tags.id = images_tags.tag_id')
+            ->where(['tags.title' => $title])
+            ->andWhere(['thumbnails.type' => Thumbnails::SMALL_TYPE]);
+       
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 1]);
+        $images = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+        //echo '<pre>';var_dump($pages);die();
+        return $this->render('view', [
+            'images' => $images,
+            'pages' => $pages,
+            'title' => $title
+        ]);
     }
     
     public function actionAutocomplete(string $q)
