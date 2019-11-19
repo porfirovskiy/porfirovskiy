@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\LinkPager;
 
 $this->title = \Yii::t('common', 'tag') . ': ' . $title;
-$this->params['breadcrumbs'][] = \Yii::t('common', 'Tags');
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('common', 'Tags'), 'url' => '/tags'];
 $this->params['breadcrumbs'][] = $title;
 
 ?>
