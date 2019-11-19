@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
         <div class="image-params-wrapper">
-            <span class="image-params"><?=\Yii::t('common', 'Source')?>:</span> <?= $image->source ? $image->source : 'empty' ?>
+            <span class="image-params"><?=\Yii::t('common', 'Source')?>:</span> <?= $image->source ? $image->source : 'original' ?>
         </div>
 
         <div class="image-params-wrapper">
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?=\Yii::t('common', 'Tags')?>:
             </span>
             <?php foreach($tags as $tag): ?>
-            <?= Html::a($tag, ['@web/tags/' . $tag]) ?>
+            <?= Html::a($tag, ['@web/tag/' . $tag]) ?>
             <?php endforeach; ?>
         </div>
 
@@ -78,7 +78,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <span class="image-params"><?=\Yii::t('common', 'Description')?>:</span>
         <br>
         <span class="image-description">
-            <?= $description->text ?>
+            <?= isset($description->text) ? $description->text : 'нету' ?>
         </span>
     </div>
 

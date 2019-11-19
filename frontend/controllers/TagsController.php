@@ -11,7 +11,18 @@ class TagsController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        return $this->render('index');
+        $query = Tags::find()->select('title');
+        
+        $countQuery = clone $query;
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 5]);
+        $tags = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
+        
+        return $this->render('index', [
+            'tags' => $tags,
+            'pages' => $pages
+        ]);
     }
 
     public function actionView(string $title)
