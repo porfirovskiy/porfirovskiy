@@ -14,6 +14,9 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\Images;
+use frontend\models\Thumbnails;
+use yii\db\Expression;
 
 /**
  * Site controller
@@ -74,7 +77,21 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        /*$randomImages = Images::find()
+            ->select('id, name, translit_name')
+            ->orderBy(new Expression('rand()'))
+            ->limit(4)->all();*/
+        
+            $randomImages = Images::find()
+                ->select('images.name, images.translit_name, images.id, thumbnails.path')
+                ->leftJoin('thumbnails', 'thumbnails.image_id = images.id')
+                ->where(['thumbnails.type' => Thumbnails::SMALL_TYPE])
+                ->orderBy(new Expression('rand()'))
+                ->limit(6)->all();
+        return $this->render('index', [
+            'randomImages' => $randomImages,
+            'model' => (new Images)
+        ]);
     }
 
     /**
