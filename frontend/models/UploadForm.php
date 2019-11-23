@@ -15,6 +15,7 @@ class UploadForm extends Model
     public $imagePath;
     public $imageName;
     public $name;
+    public $source;
     public $description;
     public $tags;
     public $hash;
@@ -24,7 +25,7 @@ class UploadForm extends Model
         return [
             [['name'], 'required', 'message' => 'Please choose a name.'],
             [['name'], 'string', 'max' => 255],
-            [['description'], 'string'],
+            [['description', 'source'], 'string'],
             [['hash'], 'unique', 'targetClass' => 'frontend\models\Images'],
             [['tags'], 'required', 'message' => 'Please choose a tags.'],
             [
@@ -46,7 +47,7 @@ class UploadForm extends Model
             $this->imageFile->saveAs($this->imagePath);
             return true;
         } else {
-            var_dump($this->getErrors());die();
+            \Yii::$app->session->setFlash('error', 'Error -> ' . serialize($this->getErrors()));
             return false;
         }
     }

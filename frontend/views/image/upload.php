@@ -16,7 +16,8 @@
 
                 <?= $form->field($model, 'name') ?>
 
-
+                <?= $form->field($model, 'source') ?>
+            
                 <?=
                     $form->field($model, 'tags')->widget(Select2::classname(), [
                         'name' => 'tags',

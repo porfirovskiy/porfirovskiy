@@ -47,6 +47,7 @@ class ImageController extends Controller
                 //save image data to db
                 $image = new Images();
                 $image->name = $model->name;
+                $image->source = $model->source;
                 $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
                 $image->origin_name = $model->imageFile->baseName;
                 $image->path = str_replace($model->dir, '', $model->imagePath);
@@ -70,13 +71,10 @@ class ImageController extends Controller
                     //make thumbnails
                     $thumbnailsModel = new Thumbnails();
                     $thumbnailsModel->makeThumbnails($model, $imageId);
-                    echo 'saved!';
+                    Yii::$app->session->setFlash('success', \Yii::t('common', 'Image saved!'));
                 } else {
-                    echo 'error!';
+                    Yii::$app->session->setFlash('error', \Yii::t('common', 'Model not saved!'));
                 }
-                die();
-                //var_dump(date('Y-m-d H:i:s'));die();
-                return;
             }
         }
 
