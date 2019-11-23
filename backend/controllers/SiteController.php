@@ -6,6 +6,8 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
+use yii\data\ActiveDataProvider;
+use backend\models\Images;
 
 /**
  * Site controller
@@ -60,7 +62,16 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $dataProvider = new ActiveDataProvider([
+            'query' => Images::find(),
+            'pagination' => [
+                'pageSize' => 10
+            ],
+        ]);
+        
+        return $this->render('index', [
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     /**

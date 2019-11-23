@@ -102,6 +102,14 @@ class Images extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getTags()
+    {
+        return $this->hasMany(Tags::className(), ['image_id' => 'id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getThumbnails()
     {
         return $this->hasMany(Thumbnails::className(), ['image_id' => 'id']);

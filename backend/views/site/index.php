@@ -1,53 +1,42 @@
 <?php
 
-/* @var $this yii\web\View */
+use yii\grid\GridView;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use frontend\models\Thumbnails;
 
-$this->title = 'My Yii Application';
+$this->title = 'List of images';
 ?>
 <div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
-        </div>
-
-    </div>
+    <?php
+        echo GridView::widget([
+            'dataProvider' => $dataProvider,
+            'columns' => [
+                //['class' => 'yii\grid\SerialColumn'],
+                'id',
+                'created',
+                'name',
+                [
+                    'attribute' => 'tags',
+                    'value' => function ($data) {
+                        $thumbnail = \yii\helpers\ArrayHelper::getColumn($data->thumbnails, function ($element) {
+                            if ($element['type'] == Thumbnails::SMALL_TYPE) {
+                                return $element['path'];
+                            }
+                        });
+                        $host = 'http://img.net/';
+                        return Html::a(Html::img($host . $thumbnail[0]), $host . 'image/' . $data->id . '-' . $data->translit_name);
+                    },
+                    'format' => 'raw',
+                ],         
+                /*[
+                    'attribute' => 'created',
+                    'value' => function ($data) {
+                        return $data->created;
+                    },
+                    'format' => 'raw',
+                ],*/           
+            ],
+        ]);
+    ?>
 </div>
