@@ -29,5 +29,6 @@ return [
     'Origin name' => 'Оригинальное имя',
     'Description' => 'Описание',
     'Source' => 'Источник',
+    'Created' => 'Создано',
     
 ];

@@ -5,7 +5,6 @@
 use yii\helpers\Html;
 
 $this->title = $image->name;
-$this->params['breadcrumbs'][] = \Yii::t('common', 'Images');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -45,6 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="params-main-wrapper">
         <div class="image-params-wrapper">
             <?= Html::a(\Yii::t('common', 'Full size'), ['@web/images/' . $image->path]) ?>
+        </div>
+        
+        <div class="image-params-wrapper">
+            <span class="image-params"><?=\Yii::t('common', 'Created')?>:</span> <?= $image->created ?>
         </div>
 
         <div class="image-params-wrapper">
