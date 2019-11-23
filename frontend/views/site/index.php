@@ -25,19 +25,7 @@ $this->title = \Yii::t('common', 'Img.net');
     <div class="body-content">
 
         <div class="image-search">
-                <?php $form = ActiveForm::begin([
-                    'id' => 'image-search-form',
-                    'method' => 'get',
-                    'action' => ['/image/search']
-                ]); ?>
-
-                <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton(\Yii::t('common', 'Search'), ['class' => 'btn btn-primary']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
+            <?= $this->render('/image/_search_form', ['model' => $model]) ?>
         </div>
         
         <div class="wrap-small-image">
