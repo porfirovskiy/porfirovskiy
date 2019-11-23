@@ -16,6 +16,7 @@ use frontend\models\SignupForm;
 use common\models\User;
 use frontend\models\ContactForm;
 use frontend\models\Images;
+use frontend\models\ImagesSearch;
 use frontend\models\Thumbnails;
 use yii\db\Expression;
 
@@ -82,16 +83,16 @@ class SiteController extends Controller
             ->select('id, name, translit_name')
             ->orderBy(new Expression('rand()'))
             ->limit(4)->all();*/
-        
-            $randomImages = Images::find()
-                ->select('images.name, images.translit_name, images.id, thumbnails.path')
-                ->leftJoin('thumbnails', 'thumbnails.image_id = images.id')
-                ->where(['thumbnails.type' => Thumbnails::SMALL_TYPE])
-                ->orderBy(new Expression('rand()'))
-                ->limit(6)->all();
+
+        $randomImages = Images::find()
+            ->select('images.name, images.translit_name, images.id, thumbnails.path')
+            ->leftJoin('thumbnails', 'thumbnails.image_id = images.id')
+            ->where(['thumbnails.type' => Thumbnails::SMALL_TYPE])
+            ->orderBy(new Expression('rand()'))
+            ->limit(6)->all();
         return $this->render('index', [
             'randomImages' => $randomImages,
-            'model' => (new Images)
+            'model' => (new ImagesSearch)
         ]);
     }
 

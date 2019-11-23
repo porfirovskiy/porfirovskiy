@@ -12,6 +12,7 @@ use frontend\models\Thumbnails;
 use frontend\models\ImagesTags;
 use frontend\models\Exif;
 use frontend\models\Descriptions;
+use frontend\models\ImagesSearch;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 
@@ -96,12 +97,23 @@ class ImageController extends Controller
                 ->all();
         $tags = ArrayHelper::getColumn($tags, 'title');
         $description = Descriptions::find()->select('text')->where(['image_id' => $id])->one();
-        //echo '<pre>';var_dump($description);die();
+
         return $this->render('view', [
             'image' => $image,
             'thumbnail' => $thumbnail,
             'tags' => $tags,
             'description' => $description
+        ]);
+    }
+    
+    public function actionSearch() 
+    {   
+        $searchModel = new ImagesSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+//echo '<pre>';var_dump(Yii::$app->request->queryParams);die();
+        return $this->render('search', [
+            'dataProvider' => $dataProvider,
+            //'searchModel' => $searchModel,
         ]);
     }
     

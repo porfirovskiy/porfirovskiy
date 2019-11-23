@@ -25,12 +25,16 @@ $this->title = \Yii::t('common', 'Img.net');
     <div class="body-content">
 
         <div class="image-search">
-                <?php $form = ActiveForm::begin(['id' => 'image-search-form']); ?>
+                <?php $form = ActiveForm::begin([
+                    'id' => 'image-search-form',
+                    'method' => 'get',
+                    'action' => ['/image/search']
+                ]); ?>
 
                 <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton(\Yii::t('common', 'Search'), ['class' => 'btn btn-primary']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>
