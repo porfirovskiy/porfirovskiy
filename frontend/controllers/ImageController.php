@@ -109,11 +109,13 @@ class ImageController extends Controller
     public function actionSearch() 
     {   
         $searchModel = new ImagesSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->get());
-//echo '<pre>';var_dump(Yii::$app->request->queryParams);die();
+        $getData = Yii::$app->request->get();
+        $dataProvider = $searchModel->search($getData);
+
+        $searchModel->name = $getData['ImagesSearch']['name'];
         return $this->render('search', [
             'dataProvider' => $dataProvider,
-            //'searchModel' => $searchModel,
+            'model' => $searchModel,
         ]);
     }
     

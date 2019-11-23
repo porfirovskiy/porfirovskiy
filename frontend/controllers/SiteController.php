@@ -92,7 +92,7 @@ class SiteController extends Controller
             ->limit(6)->all();
         return $this->render('index', [
             'randomImages' => $randomImages,
-            'model' => (new ImagesSearch)
+            'model' => (new ImagesSearch())
         ]);
     }
 
