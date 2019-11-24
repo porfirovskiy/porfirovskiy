@@ -95,12 +95,14 @@ class ImageController extends Controller
                 ->all();
         $tags = ArrayHelper::getColumn($tags, 'title');
         $description = Descriptions::find()->select('text')->where(['image_id' => $id])->one();
+        $commentModel = new \frontend\models\Comments();
 
         return $this->render('view', [
             'image' => $image,
             'thumbnail' => $thumbnail,
             'tags' => $tags,
-            'description' => $description
+            'description' => $description,
+            'commentModel' => $commentModel
         ]);
     }
     

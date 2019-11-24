@@ -36,7 +36,7 @@ $this->title = 'List of images';
                     'template' => '{update} {delete}',
                     'buttons' => [
                         'update' => function ($url,$model) {
-                             return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['/image/update&id=' . $model->id]);
+                             return urldecode(Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['/image/update&id=' . $model->id]));
                         },
                         'delete' => function ($url,$model) {
                             return urldecode(Html::a('<span class="glyphicon glyphicon-trash"></span>', 

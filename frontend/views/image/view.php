@@ -84,5 +84,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= isset($description->text) ? $description->text : 'нету' ?>
         </span>
     </div>
+    
+    <div class="image-comment-form">
+        <?= $this->render('_comment_form', ['commentModel' => $commentModel]) ?>
+    </div>
 
 </div>
