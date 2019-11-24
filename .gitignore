@@ -42,6 +42,12 @@ phpunit.phar
 /backend/web/index-test.php
 /backend/web/robots.txt
 
+/backend/web/images
+/backend/web/thumbnails
+/frontend/web/images
+/frontend/web/thumbnails
+
+
 /images
 /thumbnails
 *.log

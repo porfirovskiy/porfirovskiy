@@ -28,7 +28,28 @@ $this->title = 'List of images';
                         return Html::a(Html::img($host . $thumbnail[0]), $host . 'image/' . $data->id . '-' . $data->translit_name);
                     },
                     'format' => 'raw',
-                ],         
+                ],    
+                [
+                    'class' => 'yii\grid\ActionColumn',
+                    'header'=>'Действия', 
+                    'headerOptions' => ['width' => '80'],
+                    'template' => '{update} {delete}',
+                    'buttons' => [
+                        'update' => function ($url,$model) {
+                             return Html::a('<span class="glyphicon glyphicon-pencil"></span>', ['/image/update&id=' . $model->id]);
+                        },
+                        'delete' => function ($url,$model) {
+                            return urldecode(Html::a('<span class="glyphicon glyphicon-trash"></span>', 
+                                    ['/image/delete&id=' . $model->id],
+                                    [
+                                        'data' => [
+                                            'confirm' => 'Delete image?',
+                                            //'method' => 'post',
+                                        ]
+                                    ]));
+                        }
+                    ],
+                ],
                 /*[
                     'attribute' => 'created',
                     'value' => function ($data) {
