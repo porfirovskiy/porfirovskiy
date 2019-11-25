@@ -85,8 +85,24 @@ $this->params['breadcrumbs'][] = $this->title;
         </span>
     </div>
     
+    <?php if(Yii::$app->session->hasFlash('success')): ?>
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <?php echo Yii::$app->session->getFlash('success'); ?>
+        </div>
+    <?php endif;?>
+    
     <div class="image-comment-form">
-        <?= $this->render('_comment_form', ['commentModel' => $commentModel]) ?>
+        <?= $this->render('_comment_form', [
+                'commentModel' => $commentModel,
+                'imageId' => $image->id 
+            ]) ?>
+    </div>
+    
+    <div class="image-comment-form">
+            <?= $this->render('_comments_list', [
+                'model' => $image
+            ]) ?>
     </div>
 
 </div>

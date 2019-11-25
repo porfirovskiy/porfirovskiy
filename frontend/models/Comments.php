@@ -34,7 +34,7 @@ class Comments extends \yii\db\ActiveRecord
     {
         return [
             [['comment', 'image_id', 'created'], 'required'],
-            [['comment'], 'string'],
+            [['comment', 'name'], 'string'],
             [['image_id', 'user_id'], 'integer'],
             [['created'], 'safe'],
             [['image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Images::className(), 'targetAttribute' => ['image_id' => 'id']],

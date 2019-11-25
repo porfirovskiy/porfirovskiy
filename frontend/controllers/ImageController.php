@@ -15,6 +15,7 @@ use frontend\models\Descriptions;
 use frontend\models\ImagesSearch;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
+use frontend\models\Comments;
 
 class ImageController extends Controller
 {
@@ -95,7 +96,7 @@ class ImageController extends Controller
                 ->all();
         $tags = ArrayHelper::getColumn($tags, 'title');
         $description = Descriptions::find()->select('text')->where(['image_id' => $id])->one();
-        $commentModel = new \frontend\models\Comments();
+        $commentModel = new Comments();
 
         return $this->render('view', [
             'image' => $image,
@@ -117,6 +118,23 @@ class ImageController extends Controller
             'dataProvider' => $dataProvider,
             'model' => $searchModel,
         ]);
+    }
+    
+    public function actionAddComment()
+    {
+        $model = new Comments();
+        $model->created = date('Y-m-d H:i:s');
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', \Yii::t('common', 'Comment saved!'));
+            } else {
+                \Yii::$app->session->setFlash('error', 'Error -> ' . serialize($model->getErrors()));
+            }
+        } else {
+            \Yii::$app->session->setFlash('error', 'Error -> ' . serialize($model->getErrors()));
+        }
+
+        return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
     }
     
 }
