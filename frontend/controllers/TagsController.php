@@ -50,7 +50,7 @@ class TagsController extends \yii\web\Controller
     
     public function actionAutocomplete(string $q)
     {   
-        if(\Yii::$app->request->isAjax) {
+        if (\Yii::$app->request->isAjax) {
             $tags = Tags::find()
                 ->select('title AS id, title AS text')
                 ->where(['like', 'title', $q])

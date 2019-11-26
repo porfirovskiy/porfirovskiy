@@ -7,6 +7,7 @@ use yii\web\Controller;
 use frontend\models\UploadForm;
 use yii\web\UploadedFile;
 use backend\models\Images;
+use backend\models\ImageUpdateForm;
 use frontend\models\Tags;
 use frontend\models\Thumbnails;
 use frontend\models\ImagesTags;
@@ -24,11 +25,11 @@ class ImageController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['update, delete'],
+                'only' => ['update, delete, tags'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['update, delete'],
+                        'actions' => ['update, delete, tags'],
                         'roles' => ['@'],
                     ]
                 ],
@@ -38,8 +39,31 @@ class ImageController extends Controller
     
     public function actionUpdate(int $id)
     {
-        $model = Images::findOne($id);  
-        //echo '<pre>';var_dump($model);die();
+        $image = Images::findOne($id);  
+        $model = new ImageUpdateForm();
+        //set standart fields
+        $model->name = $image->name;
+        $model->source = $image->source;
+        //get tags
+        $tags = ImagesTags::find()
+                ->select('tags.title')
+                ->leftJoin('tags', 'tags.id = images_tags.tag_id')
+                ->where(['images_tags.image_id' => $image->id])
+                ->asArray()
+                ->all();
+        $model->tags = ArrayHelper::getColumn($tags, 'title');
+        //get description
+        $model->description = isset($image->descriptions[0]) ? $image->descriptions[0]->text : null;
+        if (Yii::$app->request->isPost) {
+            $model->load(Yii::$app->request->post());
+            echo '<pre>';var_dump($model);die();
+            //!!!!!!!!!get translit name and set !!!!!!!!!!!!!!!!
+            if ($model->update()) {
+                Yii::$app->session->setFlash('success', \Yii::t('common', 'Image updated!'));
+            } else {
+                Yii::$app->session->setFlash('error', \Yii::t('common', 'Error: image not updated!'));
+            }
+        }
         return $this->render('update', ['model' => $model]);
     }
     
@@ -51,6 +75,19 @@ class ImageController extends Controller
         Yii::$app->session->setFlash('success', \Yii::t('common', 'Image with ID: ' . $id . ' deleted!'));
         
         return $this->goHome();
+    }
+    
+    public function actionTags(string $q) 
+    {
+        if (\Yii::$app->request->isAjax) {
+            $tags = Tags::find()
+                ->select('title AS id, title AS text')
+                ->where(['like', 'title', $q])
+                ->limit(10)
+                ->asArray()
+                ->all();
+            return json_encode($tags);
+        }
     }
     
 }

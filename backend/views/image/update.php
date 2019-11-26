@@ -15,14 +15,14 @@
 
                 <?= $form->field($model, 'source') ?>
             
-                <?=
+                            <?=
                     $form->field($model, 'tags')->widget(Select2::classname(), [
                         'name' => 'tags',
                         'options' => [
                             'placeholder' => 'input tags',
                             'multiple' => true,
                         ],
-                        'data' => ['id' => 1, 'name' => 'test'],
+                        //'data' => ['id' => 1, 'name' => 'test'],
                         'pluginOptions' => [
                             'tags' => true,
                             'initialize' => true,
@@ -30,7 +30,7 @@
                             'minimumInputLength' => 3,
                             'maximumSelectionLength' => 3,
                             'ajax' => [
-                                'url' => Url::to('/tags/autocomplete'),
+                                'url' => Url::to('index.php?r=image/tags'),
                                 'dataType' => 'json',
                                 'data' => new JsExpression('function(params) { return {q:params.term}; }'),
                                 'processResults' => new JsExpression('function(data) {
@@ -47,7 +47,7 @@
                         ]
                     ])
                 ?>
-
+            
                 <?= $form->field($model, 'description')->textarea(['rows' => '6']) ?>
 
                 <button>Update</button>
