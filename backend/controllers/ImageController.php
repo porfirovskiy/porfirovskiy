@@ -56,9 +56,8 @@ class ImageController extends Controller
         $model->description = isset($image->descriptions[0]) ? $image->descriptions[0]->text : null;
         if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());
-            echo '<pre>';var_dump($model);die();
-            //!!!!!!!!!get translit name and set !!!!!!!!!!!!!!!!
-            if ($model->update()) {
+            $model->translit_name = \yii\helpers\Inflector::slug($model->name, '-');
+            if ($model->update($id)) {
                 Yii::$app->session->setFlash('success', \Yii::t('common', 'Image updated!'));
             } else {
                 Yii::$app->session->setFlash('error', \Yii::t('common', 'Error: image not updated!'));
