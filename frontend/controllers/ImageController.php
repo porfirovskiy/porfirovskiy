@@ -84,8 +84,10 @@ class ImageController extends Controller
     
     public function actionView(int $id) 
     {
-        //$image = Images::find(['id' => $id])->asArray()->one();
         $image = Images::findOne($id);
+        if (is_null($image)) {
+            throw new \yii\web\NotFoundHttpException(\Yii::t('common', 'Page not found'));
+        }
         $thumbnail = Thumbnails::find()->where(['image_id' => $id])
             ->andWhere(['type' => Thumbnails::BIG_TYPE])->one();
         $tags = ImagesTags::find()

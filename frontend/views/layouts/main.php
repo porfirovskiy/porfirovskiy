@@ -35,13 +35,15 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    $menuItems = [
-        ['label' => \Yii::t('common', 'Home'), 'url' => ['/']],
-        ['label' => \Yii::t('common', 'Upload'), 'url' => ['/image/upload']],
-        ['label' => \Yii::t('common', 'Tags'), 'url' => ['/tags']],
-        ['label' => \Yii::t('common', 'About'), 'url' => ['/site/about']],
-        ['label' => \Yii::t('common', 'Contact'), 'url' => ['/site/contact']],
-    ];
+    $menuItems = [];
+    $menuItems[] = ['label' => \Yii::t('common', 'Home'), 'url' => ['/']];
+    if (!Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => \Yii::t('common', 'Upload'), 'url' => ['/image/upload']];
+    }
+    $menuItems[] = ['label' => \Yii::t('common', 'Tags'), 'url' => ['/tags']];
+    $menuItems[] = ['label' => \Yii::t('common', 'About'), 'url' => ['/site/about']];
+    $menuItems[] = ['label' => \Yii::t('common', 'Contact'), 'url' => ['/site/contact']];
+
     if (Yii::$app->user->isGuest) {
         //$menuItems[] = ['label' => \Yii::t('common', 'Signup'), 'url' => ['/site/signup']];
         $menuItems[] = ['label' => \Yii::t('common', 'Login'), 'url' => ['/site/login']];

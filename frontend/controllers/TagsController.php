@@ -40,7 +40,7 @@ class TagsController extends \yii\web\Controller
         $images = $query->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
-        //echo '<pre>';var_dump($pages);die();
+        
         return $this->render('view', [
             'images' => $images,
             'pages' => $pages,

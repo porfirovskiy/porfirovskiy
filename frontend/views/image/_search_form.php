@@ -9,7 +9,7 @@
         'action' => ['/image/search']
     ]); ?>
 
-    <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['autofocus' => false]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(\Yii::t('common', 'Search'), ['class' => 'btn btn-primary']) ?>
