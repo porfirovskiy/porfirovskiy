@@ -19,7 +19,7 @@ class ImagesSearch extends Images
     {
         // только поля определенные в rules() будут доступны для поиска
         return [
-            [['name'], 'required'],
+            [['name'], 'required', 'message' => \Yii::t('common', 'Input search request')],
         ];
     }
 

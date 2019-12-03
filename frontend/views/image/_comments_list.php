@@ -8,13 +8,10 @@ use yii\helpers\Html;
     <?php foreach($model->comments as $comment): ?>
         <div>
             <div class="image-comment-name">
-                Name: <?= $comment->name ?>
+                <?= \Yii::t('common', 'Name') ?>: <?= $comment->name ?> <?= \Yii::t('common', 'added') ?>: <?= $comment->created ?>
             </div>
             <div class="image-comment">
-                Comment: <?= $comment->comment ?>
-            </div>
-            <div class="image-comment-created">
-                Created: <?= $comment->created ?>
+                <?= $comment->comment ?>
             </div>
         </div>
     <?php endforeach; ?>

@@ -15,9 +15,14 @@ $this->params['breadcrumbs'][] = $this->title;
         border: 1px dotted green;
         padding: 5px;
         font-size: 16px;
+        margin: 4px;
      }
      
     .tag-wrap {
+        text-align: center;
+    }
+    
+    .pagination-wrapper {
         text-align: center;
     }
   </style>
@@ -26,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
       <h1> <?= \Yii::t('common', 'Tags') ?>:</h1>
   </div>
 
-<div>
+<div style="padding: 1%;text-align: center;">
     <?php foreach($tags as $tag): ?>
         <div class="tag">
             <?= Html::a($tag->title, ['tag/' . $tag->title]) ?>
@@ -34,8 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endforeach; ?>
 </div>
     
-<?php
-    echo LinkPager::widget([
-        'pagination' => $pages,
-    ]);
-?>
+<div class="pagination-wrapper">
+    <?php
+        echo LinkPager::widget([
+            'pagination' => $pages,
+        ]);
+    ?>
+</div>

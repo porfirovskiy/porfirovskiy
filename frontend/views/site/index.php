@@ -18,6 +18,16 @@ $this->title = \Yii::t('common', 'Img.net');
         width: 20%;
         text-align: center;
     }
+    
+    .image-search {
+        text-align: center;
+    }
+    
+    .image-search input {
+        width: 30%;
+        display: inline-block;
+    }
+    
   </style>
 
 <div class="site-index">

@@ -30,6 +30,27 @@ $this->params['breadcrumbs'][] = $this->title;
         width: 70%;
         margin: 0 auto;
     }
+    
+    .image-comment-form {
+        text-align: center;
+        margin-top: 5%;
+    }
+    
+    .image-comment-form input {
+        width: 20%;
+        display: inline-block;
+    }
+    
+    .image-comment-form textarea {
+        width: 20%;
+        display: inline-block;
+    }
+    
+    .image-comment-list {
+        text-align: center;
+    }
+        
+    
   </style>
 
 <div class="site-about">
@@ -98,13 +119,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php endif;?>
     
     <div class="image-comment-form">
+        <div><h4><?=\Yii::t('common', 'Add comment')?></h4></div>
         <?= $this->render('_comment_form', [
                 'commentModel' => $commentModel,
                 'imageId' => $image->id 
             ]) ?>
     </div>
     
-    <div class="image-comment-form">
+    <h4><?=\Yii::t('common', 'Comments')?>:</h4>
+    <div class="image-comment-list">
+            <hr>
             <?= $this->render('_comments_list', [
                 'model' => $image
             ]) ?>

@@ -79,17 +79,12 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        /*$randomImages = Images::find()
-            ->select('id, name, translit_name')
-            ->orderBy(new Expression('rand()'))
-            ->limit(4)->all();*/
-
         $randomImages = Images::find()
             ->select('images.name, images.translit_name, images.id, thumbnails.path')
             ->leftJoin('thumbnails', 'thumbnails.image_id = images.id')
             ->where(['thumbnails.type' => Thumbnails::SMALL_TYPE])
             ->orderBy(new Expression('rand()'))
-            ->limit(6)->all();
+            ->limit(10)->all();
         return $this->render('index', [
             'randomImages' => $randomImages,
             'model' => (new ImagesSearch())

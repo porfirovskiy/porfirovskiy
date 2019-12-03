@@ -14,7 +14,7 @@ class TagsController extends \yii\web\Controller
         $query = Tags::find()->select('title');
         
         $countQuery = clone $query;
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 5]);
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 50]);
         $tags = $query->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
