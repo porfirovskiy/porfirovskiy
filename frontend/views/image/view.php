@@ -37,7 +37,12 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1 class="image"><?= Html::encode($image->name) ?></h1>
 
     <div class="image">
-        <?= Html::img('@web/' . $thumbnail->path, ['alt' => 'Наш логотип']) ?>
+        <?= Html::img('@web/' . $thumbnail->path, [
+            'alt' => $image->name,
+            'title' => $image->name,
+            'width' => $thumbnail->width,
+            'hight' => $thumbnail->hight
+        ]) ?>
     </div>
     
     <br>
