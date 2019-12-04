@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
     }
     
     .image-comment-form textarea {
-        width: 20%;
+        width: 40%;
         display: inline-block;
     }
     

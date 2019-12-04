@@ -19,6 +19,10 @@
         color: gray;
         margin-bottom: 1%;
     }
+    
+    .pagerony {
+        text-align: center;
+    }
 </style>
 
 <h2>Search</h2>
@@ -32,7 +36,7 @@
         echo ListView::widget([
             'dataProvider' => $dataProvider,
             'itemView' => '_image',
-            'layout' => "{pager}\n{summary}\n{items}\n{pager}",
+            'layout' => "<div class='pagerony'>{pager}</div>\n{summary}\n{items}\n<div class='pagerony'>{pager}</div>",
             'summary' => '<div class="summary-search">Showing <b>{count}</b> of <b>{totalCount}</b> images</div>'
         ]);
     ?>
