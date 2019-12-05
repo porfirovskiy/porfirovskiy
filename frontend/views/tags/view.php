@@ -22,11 +22,21 @@ $this->params['breadcrumbs'][] = $title;
 
     .tag-wrap {
         text-align: center;
+        margin-bottom: 4%;
     }
     
     .small-image {
         display: inline-block;
         width: 20%;
+        text-align: center;
+        margin-bottom: 2%;
+    }
+    
+    .tag-images-wrap {
+        text-align: center;
+    }
+    
+    .pager-wrap {
         text-align: center;
     }
   </style>
@@ -36,7 +46,7 @@ $this->params['breadcrumbs'][] = $title;
       <h1 class="tag-name"> <?= $title ?></h1>
   </div>
 
-<div>
+<div class="tag-images-wrap">
     <?php foreach($images as $image): ?>
         <div class="small-image">
             <?= Html::img('@web/' . $image->path, ['alt' => $image->name]) ?>
@@ -46,6 +56,7 @@ $this->params['breadcrumbs'][] = $title;
     <?php endforeach; ?>
 </div>
     
+<div class="pager-wrap">  
 <?php
     echo LinkPager::widget([
         'pagination' => $pages,

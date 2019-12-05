@@ -21,6 +21,7 @@ $this->title = \Yii::t('common', 'Img.net');
     
     .image-search {
         text-align: center;
+        margin-bottom: 5%;
     }
     
     .image-search input {

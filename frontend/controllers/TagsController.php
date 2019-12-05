@@ -36,7 +36,7 @@ class TagsController extends \yii\web\Controller
             ->andWhere(['thumbnails.type' => Thumbnails::SMALL_TYPE]);
        
         $countQuery = clone $query;
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 5]);
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
         $images = $query->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
