@@ -91,15 +91,15 @@ class ImageController extends Controller
         $thumbnail = Thumbnails::find()->where(['image_id' => $id])
             ->andWhere(['type' => Thumbnails::BIG_TYPE])->one();
         $tags = ImagesTags::find()
-                ->select('tags.title')
+                ->select('tags.title, tags.translit_title')
                 ->leftJoin('tags', 'tags.id = images_tags.tag_id')
                 ->where(['images_tags.image_id' => $id])
                 ->asArray()
                 ->all();
-        $tags = ArrayHelper::getColumn($tags, 'title');
+        //$tags = ArrayHelper::getColumn($tags, 'title');
         $description = Descriptions::find()->select('text')->where(['image_id' => $id])->one();
         $commentModel = new Comments();
-
+//print_r($tags);die();
         return $this->render('view', [
             'image' => $image,
             'thumbnail' => $thumbnail,

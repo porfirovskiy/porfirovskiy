@@ -11,7 +11,7 @@ class TagsController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        $query = Tags::find()->select('title');
+        $query = Tags::find()->select('title, translit_title');
         
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 50]);
@@ -32,7 +32,7 @@ class TagsController extends \yii\web\Controller
             ->leftJoin('thumbnails', 'thumbnails.image_id = images.id')
             ->leftJoin('images_tags', 'images_tags.image_id = images.id')
             ->leftJoin('tags', 'tags.id = images_tags.tag_id')
-            ->where(['tags.title' => $title])
+            ->where(['tags.translit_title' => $title])
             ->andWhere(['thumbnails.type' => Thumbnails::SMALL_TYPE]);
        
         $countQuery = clone $query;

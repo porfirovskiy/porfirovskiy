@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div style="padding: 1%;text-align: center;">
     <?php foreach($tags as $tag): ?>
         <div class="tag">
-            <?= Html::a($tag->title, ['tag/' . $tag->title]) ?>
+            <?= Html::a($tag->title, ['tag/' . $tag->translit_title]) ?>
         </div>
     <?php endforeach; ?>
 </div>

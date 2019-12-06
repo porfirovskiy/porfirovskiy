@@ -17,6 +17,7 @@ $this->title = \Yii::t('common', 'Img.net');
         display: inline-block;
         width: 20%;
         text-align: center;
+        margin-bottom: 2%;
     }
     
     .image-search {

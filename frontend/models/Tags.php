@@ -70,6 +70,7 @@ class Tags extends \yii\db\ActiveRecord
             foreach ($diff as $tag) {
                 $tagModel = new Tags();
                 $tagModel->title = $tag;
+                $tagModel->translit_title = \yii\helpers\Inflector::slug($tag, '-');
                 $tagModel->save();
                 $tagsIds[] = $tagModel->getPrimaryKey();
             }
