@@ -22,8 +22,9 @@ class Thumbnails extends \yii\db\ActiveRecord
     const BIG_TYPE = 'big';
     const MEDIUM_TYPE = 'medium';
     const SMALL_TYPE = 'small';
-    const SMALL_WIDTH = 150;
-    const BIG_WIDTH = 800;
+    const SMALL_WIDTH = 200;
+    const MEDIUM_WIDTH = 300;
+    const BIG_WIDTH = 1000;
     const THUMBNAIL_QUALITY = 100;
     
     

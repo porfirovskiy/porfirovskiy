@@ -5,11 +5,17 @@
 <style>
     .images-wrapper div[data-key] {
         display: inline-block;
+        width: 20%;
+    }
+    
+    .images-wrapper {
+        text-align: center;
     }
     
     .image-search {
         text-align: center;
     }
+    
     .image-search input {
         width: 30%;
         display: inline-block;
@@ -22,6 +28,10 @@
     
     .pagerony {
         text-align: center;
+    }
+    
+    .images-wrapper .image {
+        padding-bottom: 5%;
     }
 </style>
 
