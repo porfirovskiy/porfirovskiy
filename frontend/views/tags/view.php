@@ -57,8 +57,9 @@ $this->params['breadcrumbs'][] = $title;
 </div>
     
 <div class="pager-wrap">  
-<?php
-    echo LinkPager::widget([
-        'pagination' => $pages,
-    ]);
-?>
+    <?php
+        echo LinkPager::widget([
+            'pagination' => $pages,
+        ]);
+    ?>
+</div>

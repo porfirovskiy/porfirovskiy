@@ -37,6 +37,26 @@ class ImageController extends Controller
         ];
     }
     
+    /**
+     * {@inheritdoc}
+     */
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                //'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+                'foreColor' => 0xFE980F, // цвет символов
+                'minLength' => 4, // минимальное количество символов
+                'maxLength' => 5, // максимальное
+                'offset' => -1, // расстояние между символами (можно отрицательное)
+            ],
+        ];
+    }
+    
     public function actionUpload()
     {
         $model = new UploadForm();
@@ -126,10 +146,12 @@ class ImageController extends Controller
     {
         $model = new Comments();
         $model->created = date('Y-m-d H:i:s');
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        
+        if ($model->load(Yii::$app->request->post())) {
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', \Yii::t('common', 'Comment saved!'));
             } else {
+                print_r($model->getErrors());die();
                 \Yii::$app->session->setFlash('error', 'Error -> ' . serialize($model->getErrors()));
             }
         } else {

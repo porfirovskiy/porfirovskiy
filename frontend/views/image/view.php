@@ -23,11 +23,11 @@ $this->params['breadcrumbs'][] = $this->title;
         display: inline-block;
     }
     .params-main-wrapper {
-        width: 70%;
+        width: 87%;
         margin: 0 auto;
     }
     .image-description-wrapper {
-        width: 70%;
+        width: 87%;
         margin: 0 auto;
     }
     
