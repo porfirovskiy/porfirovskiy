@@ -41,10 +41,12 @@ class TagsController extends \yii\web\Controller
             ->limit($pages->limit)
             ->all();
         
+        $originalTitle = Tags::findOne(['translit_title' => $title]);
+        
         return $this->render('view', [
             'images' => $images,
             'pages' => $pages,
-            'title' => $title
+            'title' => $originalTitle->title
         ]);
     }
     
