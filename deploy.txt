@@ -7,4 +7,6 @@ First deploy
 6. create symlinks for images and thumbnails dirs
 
 Next deploys
-1. 
+1. git pull
+2. composer install
+3. ./yii migrate
