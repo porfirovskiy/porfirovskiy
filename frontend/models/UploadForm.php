@@ -40,11 +40,16 @@ class UploadForm extends Model
     
     public function upload()
     {
-        $this->hash = sha1_file($this->imageFile->tempName);
         if ($this->validate()) {
             $this->imageName = $this->getUniqName();
             $this->imagePath = $this->getImageDir($this->dir). $this->imageName . '.' . $this->imageFile->extension;
             $this->imageFile->saveAs($this->imagePath);
+            //check if file already exist by checksum
+            if (!$this->isUniqueCheckSum($this->imagePath)) {
+                unlink($this->imagePath);
+                \Yii::$app->session->setFlash('error', 'Error -> file already exist');
+                return false;
+            }
             return true;
         } else {
             \Yii::$app->session->setFlash('error', 'Error -> ' . serialize($this->getErrors()));
@@ -85,6 +90,15 @@ class UploadForm extends Model
              'width' => $rawData[0],
              'hight' => $rawData[1]
          ];
+    }
+    
+    private function isUniqueCheckSum($imageName) {
+        $this->hash = sha1_file($imageName);
+        $count = (int)Images::find()->where(['hash' => $this->hash])->count();
+        if ($count > 0) {
+            return false;
+        }
+        return true;
     }
     
 }
