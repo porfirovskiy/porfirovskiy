@@ -72,6 +72,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a(\Yii::t('common', 'Full size'), ['@web/images/' . $image->path]) ?>
         </div>
         
+        <?php if (!Yii::$app->user->isGuest): ?>
+            <div class="image-params-wrapper">
+                <span class="image-params"><?=\Yii::t('common', 'Status')?>:</span> <?= $image->status ?>
+            </div>
+         <?php endif; ?>
+        
         <div class="image-params-wrapper">
             <span class="image-params"><?=\Yii::t('common', 'Uploaded')?>:</span> <?= $image->created ?>
         </div>

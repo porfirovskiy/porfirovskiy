@@ -107,7 +107,11 @@ class ImageController extends Controller
     
     public function actionView(int $id) 
     {
-        $image = Images::findOne(['id' => $id, 'status' => Images::PUBLIC_STATUS]);
+        $image = Images::find()
+                    ->where(['id' => $id])
+                    ->andWhere(['in', 'status', Images::getCurrentStatusValues()])
+                ->one();
+
         if (is_null($image)) {
             throw new \yii\web\NotFoundHttpException(\Yii::t('common', 'Page not found'));
         }

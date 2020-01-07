@@ -48,7 +48,7 @@ class ImagesSearch extends Images
 
         // изменяем запрос добавляя в его фильтрацию
         $query->filterWhere(['like', 'name', $this->name]);
-        $query->andfilterWhere(['status' => Images::PUBLIC_STATUS]);
+        $query->andfilterWhere(['in', 'status', Images::getCurrentStatusValues()]);
 
         return $dataProvider;
     }

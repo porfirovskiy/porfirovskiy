@@ -126,4 +126,17 @@ class Images extends \yii\db\ActiveRecord
             $descModel->save();
         }
     }
+    
+    /**
+     * Get current image status values for controll
+     * access to images from guests and admin
+     * @return array
+     */
+    public static function getCurrentStatusValues(): array {
+        if(Yii::$app->user->isGuest) {
+            return [self::PUBLIC_STATUS];
+        } else {
+            return [self::PUBLIC_STATUS, self::PRIVATE_STATUS];
+        }
+    }
 }
