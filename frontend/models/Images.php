@@ -26,6 +26,9 @@ use common\models\User;
  */
 class Images extends \yii\db\ActiveRecord
 {
+    const PUBLIC_STATUS = 'public';
+    const PRIVATE_STATUS = 'private';
+    
     /**
      * {@inheritdoc}
      */

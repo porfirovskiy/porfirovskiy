@@ -83,8 +83,9 @@ class SiteController extends Controller
             ->select('images.name, images.translit_name, images.id, thumbnails.path')
             ->leftJoin('thumbnails', 'thumbnails.image_id = images.id')
             ->where(['thumbnails.type' => Thumbnails::SMALL_TYPE])
+            ->andWhere(['images.status' => Images::PUBLIC_STATUS])
             ->orderBy(new Expression('rand()'))
-            ->limit(10)->all();
+            ->limit(15)->all();
         return $this->render('index', [
             'randomImages' => $randomImages,
             'model' => (new ImagesSearch())

@@ -33,6 +33,7 @@ class TagsController extends \yii\web\Controller
             ->leftJoin('images_tags', 'images_tags.image_id = images.id')
             ->leftJoin('tags', 'tags.id = images_tags.tag_id')
             ->where(['tags.translit_title' => $title])
+            ->andWhere(['images.status' => Images::PUBLIC_STATUS])
             ->andWhere(['thumbnails.type' => Thumbnails::SMALL_TYPE]);
        
         $countQuery = clone $query;

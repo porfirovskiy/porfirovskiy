@@ -20,6 +20,7 @@ class ImagesSearch extends Images
         // только поля определенные в rules() будут доступны для поиска
         return [
             [['name'], 'required', 'message' => \Yii::t('common', 'Input search request')],
+            [['status'], 'string']
         ];
     }
 
@@ -47,6 +48,7 @@ class ImagesSearch extends Images
 
         // изменяем запрос добавляя в его фильтрацию
         $query->filterWhere(['like', 'name', $this->name]);
+        $query->andfilterWhere(['status' => Images::PUBLIC_STATUS]);
 
         return $dataProvider;
     }

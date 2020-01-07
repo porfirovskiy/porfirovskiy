@@ -14,6 +14,7 @@ class UploadForm extends Model
     public $thumbDir = 'thumbnails/';
     public $imagePath;
     public $imageName;
+    public $status;
     public $name;
     public $source;
     public $description;
@@ -25,7 +26,7 @@ class UploadForm extends Model
         return [
             [['name'], 'required', 'message' => 'Please choose a name.'],
             [['name'], 'string', 'max' => 255],
-            [['description', 'source'], 'string'],
+            [['description', 'source', 'status'], 'string'],
             [['hash'], 'unique', 'targetClass' => 'frontend\models\Images'],
             [['tags'], 'required', 'message' => 'Please choose a tags.'],
             [

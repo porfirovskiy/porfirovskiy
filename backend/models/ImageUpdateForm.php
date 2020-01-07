@@ -9,6 +9,7 @@ use frontend\models\Descriptions;
 
 class ImageUpdateForm extends Model
 {
+    public $status;
     public $name;
     public $source;
     public $description;
@@ -20,7 +21,7 @@ class ImageUpdateForm extends Model
         return [
             [['name'], 'required', 'message' => 'Please choose a name.'],
             [['name', 'translit_name'], 'string', 'max' => 255],
-            [['description', 'source'], 'string'],
+            [['description', 'source', 'status'], 'string'],
             [['tags'], 'required', 'message' => 'Please choose a tags.']
         ];
     }
@@ -32,6 +33,7 @@ class ImageUpdateForm extends Model
         {
             //update image
             $image = Images::findOne(['id' => $id]);
+            $image->status = $this->status;
             $image->name = $this->name;
             $image->source = $this->source;
             $image->translit_name = $this->translit_name;

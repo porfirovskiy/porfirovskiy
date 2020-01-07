@@ -78,6 +78,7 @@ class ImageController extends Controller
                 $image->hight = $imageParams['hight'];
                 $image->size = $model->imageFile->size;
                 $image->user_id = \Yii::$app->user->identity->id;
+                $image->status = $model->status;
                 $image->created = date('Y-m-d H:i:s');
                 if ($image->save()) {
                     $imageId = $image->getPrimaryKey();
@@ -98,13 +99,15 @@ class ImageController extends Controller
                 }
             }
         }
-
+            
+        $model->status = 'public';
+        
         return $this->render('upload', ['model' => $model]);
     }
     
     public function actionView(int $id) 
     {
-        $image = Images::findOne($id);
+        $image = Images::findOne(['id' => $id, 'status' => Images::PUBLIC_STATUS]);
         if (is_null($image)) {
             throw new \yii\web\NotFoundHttpException(\Yii::t('common', 'Page not found'));
         }

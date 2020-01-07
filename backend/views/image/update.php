@@ -3,6 +3,7 @@
     use kartik\select2\Select2;
     use yii\web\JsExpression;
     use yii\helpers\Url;
+    use frontend\models\Images;
 ?>
 <div class="load-form">
     <div class="row">
@@ -11,6 +12,12 @@
                     //'enableAjaxValidation' => true,
                 ]) ?>
 
+                <?= $form->field($model, 'status')->dropDownList([
+                        'public' => Images::PUBLIC_STATUS,
+                        'private' => Images::PRIVATE_STATUS
+                    ]); 
+                ?>
+            
                 <?= $form->field($model, 'name') ?>
 
                 <?= $form->field($model, 'source') ?>
@@ -27,8 +34,8 @@
                             'tags' => true,
                             'initialize' => true,
                             'allowClear' => true,
-                            'minimumInputLength' => 3,
-                            'maximumSelectionLength' => 3,
+                            'minimumInputLength' => 2,
+                            'maximumSelectionLength' => 15,
                             'ajax' => [
                                 'url' => Url::to('index.php?r=image/tags'),
                                 'dataType' => 'json',

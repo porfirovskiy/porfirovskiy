@@ -42,6 +42,7 @@ class ImageController extends Controller
         $image = Images::findOne($id);  
         $model = new ImageUpdateForm();
         //set standart fields
+        $model->status = $image->status;
         $model->name = $image->name;
         $model->source = $image->source;
         //get tags
