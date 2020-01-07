@@ -116,10 +116,10 @@ class ImageController extends Controller
                 ->where(['images_tags.image_id' => $id])
                 ->asArray()
                 ->all();
-        //$tags = ArrayHelper::getColumn($tags, 'title');
+
         $description = Descriptions::find()->select('text')->where(['image_id' => $id])->one();
         $commentModel = new Comments();
-//print_r($tags);die();
+
         return $this->render('view', [
             'image' => $image,
             'thumbnail' => $thumbnail,

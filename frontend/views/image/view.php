@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
         
         <div class="image-params-wrapper">
-            <span class="image-params"><?=\Yii::t('common', 'Created')?>:</span> <?= $image->created ?>
+            <span class="image-params"><?=\Yii::t('common', 'Uploaded')?>:</span> <?= $image->created ?>
         </div>
 
         <div class="image-params-wrapper">

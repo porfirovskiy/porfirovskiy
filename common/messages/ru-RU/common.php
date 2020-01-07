@@ -30,5 +30,7 @@ return [
     'Description' => 'Описание',
     'Source' => 'Источник',
     'Created' => 'Создано',
+    'Portal of images - karkaron.com' => 'Портал изображений - karkaron.com',
+    'Uploaded' => 'Загружено'
     
 ];

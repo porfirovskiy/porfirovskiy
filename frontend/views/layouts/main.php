@@ -77,7 +77,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode('img.net') ?> <?= date('Y') ?></p>
+        <p class="pull-left">&copy; <?= Html::encode('karkaron.com') ?> <?= date('Y') ?></p>
 
         <p class="pull-right"><?= '' ?></p>
     </div>
