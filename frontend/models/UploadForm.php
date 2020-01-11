@@ -9,6 +9,9 @@ use frontend\models\Images;
 class UploadForm extends Model
 {
 
+    const FORM_TYPE_FILE = 'file';
+    const FORM_TYPE_URL = 'url';
+    
     public $imageFile;
     public $dir = 'images/';
     public $thumbDir = 'thumbnails/';
@@ -33,7 +36,7 @@ class UploadForm extends Model
                 ['imageFile'],
                 'file',
                 'skipOnEmpty' => false,
-                'extensions' => 'png, jpg',
+                'extensions' => 'png, jpg, jpeg',
                 'maxSize' => 1024*1024*12
             ]
         ];
@@ -81,7 +84,7 @@ class UploadForm extends Model
         return $currentDir;
     }
     
-    private function getUniqName(): string {
+    protected function getUniqName(): string {
         return bin2hex(random_bytes(10));
     }
     
@@ -93,7 +96,7 @@ class UploadForm extends Model
          ];
     }
     
-    private function isUniqueCheckSum($imageName) {
+    protected function isUniqueCheckSum($imageName) {
         $this->hash = sha1_file($imageName);
         $count = (int)Images::find()->where(['hash' => $this->hash])->count();
         if ($count > 0) {

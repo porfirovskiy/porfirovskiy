@@ -16,6 +16,7 @@ use frontend\models\ImagesSearch;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use frontend\models\Comments;
+use frontend\models\UploadUrlForm;
 
 class ImageController extends Controller
 {
@@ -102,7 +103,60 @@ class ImageController extends Controller
             
         $model->status = 'public';
         
-        return $this->render('upload', ['model' => $model]);
+        return $this->render('upload', [
+            'model' => $model,
+            'formType' => UploadForm::FORM_TYPE_FILE
+        ]);
+    }
+    
+    public function actionUploadByUrl()
+    {
+        $model = new UploadUrlForm();
+        $request = Yii::$app->request;
+        $model->load($request->post());
+        if ($request->isPost) {
+            if ($model->upload()) {                               
+                //save image data to db
+                $image = new Images();
+                $image->name = $model->name;
+                $image->source = $model->source;
+                $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
+                $image->origin_name = $model->imageUrl;
+                $image->path = str_replace($model->dir, '', $model->imagePath);
+                $image->hash = $model->hash;
+                $imageParams = $model->getImageParams($model->imagePath);
+                $image->width = $imageParams['width'];
+                $image->hight = $imageParams['hight'];
+                $image->size = filesize($model->imagePath);
+                $image->user_id = \Yii::$app->user->identity->id;
+                $image->status = $model->status;
+                $image->created = date('Y-m-d H:i:s');
+                if ($image->save()) {
+                    $imageId = $image->getPrimaryKey();
+                    //save tags to db
+                    $tagsModel = new Tags();
+                    $tagsModel->saveImageTags($model->tags, $imageId);
+                    //save image exif to db
+                    $exifModel = new Exif();
+                    $exifModel->saveData($model->imagePath, $imageId);
+                    //save description
+                    $image->saveDescription($model->description, $imageId);
+                    //make thumbnails
+                    $thumbnailsModel = new Thumbnails();
+                    $thumbnailsModel->makeThumbnails($model, $imageId);
+                    Yii::$app->session->setFlash('success', \Yii::t('common', 'Image saved!'));
+                } else {
+                    Yii::$app->session->setFlash('error', \Yii::t('common', 'Model not saved!'));
+                }
+            }
+        }
+        
+        $model->status = 'public';
+        
+        return $this->render('upload', [
+            'model' => $model,
+            'formType' => UploadUrlForm::FORM_TYPE_URL
+        ]);
     }
     
     public function actionView(int $id) 

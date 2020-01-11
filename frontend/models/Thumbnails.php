@@ -89,8 +89,6 @@ class Thumbnails extends \yii\db\ActiveRecord
         //generate a thumbnail image 800x600
         $newBigHight = $this->getProportialHight($imageParams['width'], $imageParams['hight'], self::BIG_WIDTH);
         $this->generateThumbnail($model, self::BIG_WIDTH, $newBigHight, self::BIG_TYPE, $imageId);
-
-        //var_dump($path);die();
     }
         
     /**

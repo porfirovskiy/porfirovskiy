@@ -4,16 +4,22 @@
     use yii\web\JsExpression;
     use yii\helpers\Url;
     use frontend\models\Images;
+    use frontend\models\UploadForm;
 ?>
 <div class="load-form">
     <div class="row">
         <div class="col-lg-5">
-            <?php $form = ActiveForm::begin([
-                    //'enableAjaxValidation' => true, 
-                    'options' => ['enctype' => 'multipart/form-data']
+            <?php $form = ActiveForm::begin([ 
+                    'options' => [
+                        'enctype' => ($formType == UploadForm::FORM_TYPE_FILE) ? 'multipart/form-data' : 'application/x-www-form-urlencoded'
+                    ]
                 ]) ?>
 
-                <?= $form->field($model, 'imageFile')->fileInput() ?>
+                <?php if ($formType == UploadForm::FORM_TYPE_FILE): ?>
+                    <?= $form->field($model, 'imageFile')->fileInput() ?>
+                <?php else: ?>
+                    <?= $form->field($model, 'imageUrl') ?>
+                <?php endif; ?>
             
                 <?= $form->field($model, 'status')->dropDownList([
                         'public' => Images::PUBLIC_STATUS,
