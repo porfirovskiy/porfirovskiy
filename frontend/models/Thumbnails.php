@@ -103,7 +103,7 @@ class Thumbnails extends \yii\db\ActiveRecord
     private function generateThumbnail(UploadForm $model, string $width, string $hight, string $type, int $imageId): void 
     {
         $dir = $model->getImageDir($model->thumbDir);
-        $path = $dir . $model->imageName . '_' . $type . '.' . $model->imageFile->extension;
+        $path = $dir . $model->imageName . '_' . $type . '.' . $model->imageExtension;
         Image::thumbnail($model->imagePath, $width, $hight, \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET)
             ->save($path, ['quality' => self::THUMBNAIL_QUALITY]);
         

@@ -23,6 +23,7 @@ class UploadForm extends Model
     public $description;
     public $tags;
     public $hash;
+    public $imageExtension;
 
     public function rules()
     {
@@ -46,7 +47,8 @@ class UploadForm extends Model
     {
         if ($this->validate()) {
             $this->imageName = $this->getUniqName();
-            $this->imagePath = $this->getImageDir($this->dir). $this->imageName . '.' . $this->imageFile->extension;
+            $this->imageExtension = $this->imageFile->extension;
+            $this->imagePath = $this->getImageDir($this->dir). $this->imageName . '.' . $this->imageExtension;
             $this->imageFile->saveAs($this->imagePath);
             //check if file already exist by checksum
             if (!$this->isUniqueCheckSum($this->imagePath)) {

@@ -9,8 +9,8 @@ class UploadUrlForm extends UploadForm
     
     const DEFAULT_FILE_TYPE = 'jpg';
     
-    public $imageUrl;
     private $fileTypes = ['png', 'jpg', 'jpeg'];
+    public $imageUrl;
     
     public function rules()
     {
@@ -29,14 +29,17 @@ class UploadUrlForm extends UploadForm
     {
         if ($this->validate()) {
             $this->imageName = $this->getUniqName();
-            $this->imagePath = $this->getImageDir($this->dir). $this->imageName . '.' . $this->getImageExtension($this->imageUrl);
+            $this->imageExtension = $this->getImageExtension($this->imageUrl);
+            $this->imagePath = $this->getImageDir($this->dir). $this->imageName . '.' . $this->imageExtension;
             //save image-file from url
-            //echo '<pre>';var_dump($this->imagePath);die();
-            $this->saveImageFromUrl($this->imageUrl, $this->imagePath);
-            //check if file already exist by checksum
-            if (!$this->isUniqueCheckSum($this->imagePath)) {
-                unlink($this->imagePath);
-                \Yii::$app->session->setFlash('error', 'Error -> file already exist');
+            if ($this->saveImageFromUrl($this->imageUrl, $this->imagePath)) {
+                //check if file already exist by checksum
+                if (!$this->isUniqueCheckSum($this->imagePath)) {
+                    unlink($this->imagePath);
+                    \Yii::$app->session->setFlash('error', 'Error -> file already exist');
+                    return false;
+                }
+            } else {
                 return false;
             }
             return true;
@@ -47,14 +50,19 @@ class UploadUrlForm extends UploadForm
     }
     
     private function saveImageFromUrl(string $url, string $filePath): bool {
-        if (copy($url, $filePath)) {
-            return true;
-        } else {
+        try {
+            if (copy($url, $filePath)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            \Yii::$app->session->setFlash('error', 'Error -> ' . $e->getMessage());
             return false;
-        }
+        }  
     }
     
-    private function getImageExtension($url) {
+    private function getImageExtension(string $url): string {
         $extension = explode('.', $url);
         $currentExt = array_pop($extension);
         if (in_array($currentExt, $this->fileTypes)) {
