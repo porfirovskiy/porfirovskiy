@@ -83,12 +83,14 @@ class Thumbnails extends \yii\db\ActiveRecord
     public function makeThumbnails(UploadForm $model, int $imageId): void 
     {
         $imageParams = $model->getImageParams($model->imagePath);
+        
         //generate a thumbnail image 150x150
-        $newSmallHight = $this->getProportialHight($imageParams['width'], $imageParams['hight'], self::SMALL_WIDTH);
-        $this->generateThumbnail($model, self::SMALL_WIDTH, $newSmallHight, self::SMALL_TYPE, $imageId);
-        //generate a thumbnail image 800x600
-        $newBigHight = $this->getProportialHight($imageParams['width'], $imageParams['hight'], self::BIG_WIDTH);
-        $this->generateThumbnail($model, self::BIG_WIDTH, $newBigHight, self::BIG_TYPE, $imageId);
+        $newParams = $this->getImageProportialParams($imageParams['width'], $imageParams['hight'], self::SMALL_WIDTH);
+        $this->generateThumbnail($model, $newParams['width'], $newParams['hight'], self::SMALL_TYPE, $imageId);
+        
+        //generate a thumbnail image 1000x600
+        $newBigParams = $this->getImageProportialParams($imageParams['width'], $imageParams['hight'], self::BIG_WIDTH);
+        $this->generateThumbnail($model, $newBigParams['width'], $newBigParams['hight'], self::BIG_TYPE, $imageId);
     }
         
     /**
@@ -130,6 +132,24 @@ class Thumbnails extends \yii\db\ActiveRecord
     {
         $newHight = ($newWidth * $originHight) / $originWidth;
         return intval(round($newHight));
+    }
+    
+    /**
+     * 
+     * @param int $originWidth
+     * @param int $originHight
+     * @param int $newWidth
+     * @return array
+     */
+    private function getImageProportialParams(int $originWidth, int $originHight, int $newWidth): array {
+        //left old params
+        if ($newWidth > $originWidth) {
+            return ['widht' => $originWidth, 'hight' => $originHight];
+        } else {
+            //get new params
+            $newHight = $this->getProportialHight($originWidth, $originHight, $newWidth);
+            return ['widht' => $newWidth, 'hight' => $newHight];
+        }
     }
     
 }
