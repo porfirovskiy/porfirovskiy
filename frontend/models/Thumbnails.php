@@ -144,11 +144,11 @@ class Thumbnails extends \yii\db\ActiveRecord
     private function getImageProportialParams(int $originWidth, int $originHight, int $newWidth): array {
         //left old params
         if ($newWidth > $originWidth) {
-            return ['widht' => $originWidth, 'hight' => $originHight];
+            return ['width' => $originWidth, 'hight' => $originHight];
         } else {
             //get new params
             $newHight = $this->getProportialHight($originWidth, $originHight, $newWidth);
-            return ['widht' => $newWidth, 'hight' => $newHight];
+            return ['width' => $newWidth, 'hight' => $newHight];
         }
     }
     
