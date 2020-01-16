@@ -33,21 +33,15 @@ class SitemapController extends Controller
         foreach ($tags as $tag) {
             $urls[] = '/tag/' . $tag['translit_title'];
         }
-
-        //echo '<pre>';var_dump($urls);die();
         
+        //set content type xml in response
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        $headers = \Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml');
         
-        /*$xml = new \yii\web\XmlResponseFormatter;
-        $xml->rootTag = false;
-        \Yii::$app->response->format = 'custom_xml';
-        \Yii::$app->response->formatters['custom_xml'] = $xml;*/
- 
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_XML;
-        //\Yii::$app->response->formatters['xml']['rootTag'] = null;
-        
-        return $this->renderPartial('index', array(
+        return $this->renderPartial('index', [
             'host' => \Yii::$app->request->hostInfo,
             'urls' => $urls
-        ));        
+        ]);        
     }
 }
