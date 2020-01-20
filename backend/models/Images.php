@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use Yii;
-
+use yii\helpers\Url;
 
 /**
  * This is the model class for table "exif".
@@ -25,6 +25,20 @@ class Images extends \frontend\models\Images
         foreach ($this->thumbnails as $thumb) {
             unlink(\Yii::getAlias('@webroot') . '/' . $thumb->path);
         }
+    }
+    
+    /**
+     * Get current host on different servers and domains
+     */
+    public function getHost(): string
+    {
+        $host = explode('.', Url::base('https'));
+        $firstLevelDomen = array_pop($host);
+        $rawSecondlevelDomen = array_pop($host);
+        $rawSecondlevelDomen = explode('-', $rawSecondlevelDomen);
+        $secondlevelDomen = array_pop($rawSecondlevelDomen);
+        $host = 'http://' . $secondlevelDomen . '.' . $firstLevelDomen . '/';
+        return $host;
     }
     
 }

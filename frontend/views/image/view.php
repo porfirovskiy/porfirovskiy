@@ -113,7 +113,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <span class="image-params"><?=\Yii::t('common', 'Description')?>:</span>
         <br>
         <span class="image-description">
-            <?= isset($description->text) ? $description->text : 'нету' ?>
+            <?= isset($description->text) ? nl2br($description->text) : 'нету' ?>
         </span>
     </div>
     

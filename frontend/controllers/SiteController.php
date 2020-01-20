@@ -16,6 +16,7 @@ use frontend\models\SignupForm;
 use common\models\User;
 use frontend\models\ContactForm;
 use frontend\models\Images;
+use frontend\models\Tags;
 use frontend\models\ImagesSearch;
 use frontend\models\Thumbnails;
 use yii\db\Expression;
@@ -79,6 +80,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        //get images
         $randomImages = Images::find()
             ->select('images.name, images.translit_name, images.id, thumbnails.path')
             ->leftJoin('thumbnails', 'thumbnails.image_id = images.id')
@@ -86,8 +88,15 @@ class SiteController extends Controller
             ->andWhere(['in', 'images.status', Images::getCurrentStatusValues()])
             ->orderBy(new Expression('rand()'))
             ->limit(15)->all();
+        //get tags
+        $randomTags = Tags::find()
+            ->select('title, translit_title')
+            ->orderBy(new Expression('rand()'))
+            ->limit(10)->all();
+        
         return $this->render('index', [
             'randomImages' => $randomImages,
+            'randomTags' => $randomTags,
             'model' => (new ImagesSearch())
         ]);
     }

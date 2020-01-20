@@ -22,13 +22,21 @@ $this->title = \Yii::t('common', 'Portal of images - karkaron.com');
     
     .image-search {
         text-align: center;
-        margin-bottom: 5%;
+        margin-bottom: 1%;
     }
     
     .image-search input {
         width: 30%;
         display: inline-block;
     }
+    
+    .tag {
+        display: inline-block;
+        border: 1px dotted green;
+        padding: 5px;
+        font-size: 16px;
+        margin: 4px;
+     }
     
   </style>
 
@@ -38,6 +46,14 @@ $this->title = \Yii::t('common', 'Portal of images - karkaron.com');
 
         <div class="image-search">
             <?= $this->render('/image/_search_form', ['model' => $model]) ?>
+        </div>
+        
+        <div style="padding: 1%;margin-bottom: 1%;text-align: center;">
+            <?php foreach($randomTags as $tag): ?>
+                <div class="tag">
+                    <?= Html::a($tag->title, ['tag/' . $tag->translit_title]) ?>
+                </div>
+            <?php endforeach; ?>
         </div>
         
         <div class="wrap-small-image">

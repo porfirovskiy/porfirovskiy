@@ -24,14 +24,8 @@ $this->title = 'List of images';
                                 return $element['path'];
                             }
                         });
-                        //get current host on different servers and domains
-                        $host = explode('.', Url::base('https'));
-                        $firstLevelDomen = array_pop($host);
-                        $rawSecondlevelDomen = array_pop($host);
-                        $rawSecondlevelDomen = explode('-', $rawSecondlevelDomen);
-                        $secondlevelDomen = array_pop($rawSecondlevelDomen);
-                        $host = 'http://' . $secondlevelDomen . '.' . $firstLevelDomen . '/';
-                        return Html::a(Html::img($host . $thumbnail[0]), $host . 'image/' . $data->id . '-' . $data->translit_name);
+                        $host = $data->getHost(); 
+                        return Html::a(Html::img($thumbnail[0]), $host . 'image/' . $data->id . '-' . $data->translit_name);
                     },
                     'format' => 'raw',
                 ], 

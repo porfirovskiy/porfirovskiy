@@ -64,7 +64,10 @@ class ImageController extends Controller
                 Yii::$app->session->setFlash('error', \Yii::t('common', 'Error: image not updated!'));
             }
         }
-        return $this->render('update', ['model' => $model]);
+        return $this->render('update', [
+            'model' => $model,
+            'image' => $image
+        ]);
     }
     
     public function actionDelete(int $id) 

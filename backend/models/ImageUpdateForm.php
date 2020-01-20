@@ -42,12 +42,9 @@ class ImageUpdateForm extends Model
             ImagesTags::deleteAll(['image_id' => $id]);
             $tagsModel = new Tags();
             $tagsModel->saveImageTags($this->tags, $id);
-            //IF ONLY IMAGE CHANGE - UPDATE!!!!
             //update description
             if (isset($this->description) && !empty($this->description)) {
-                $descModel = Descriptions::find()->where(['image_id' => $id])->one();
-                $descModel->text = $this->description;
-                $descModel->update();
+                $this->updateDescription($id, $this->description);
             }
             $transaction->commit();
             return true;
@@ -57,4 +54,18 @@ class ImageUpdateForm extends Model
         }
     }
     
+    public function updateDescription(int $id, string $description)
+    {
+        $descModel = Descriptions::find()->where(['image_id' => $id])->one();
+        if (is_object($descModel)) {
+            $descModel->text = $description;
+            $descModel->update();
+        } else {
+            $newDescModel = new Descriptions();
+            $newDescModel->image_id = $id;
+            $newDescModel->text = $description;
+            $newDescModel->save();
+        }
+    }
+   
 }

@@ -4,10 +4,27 @@
     use yii\web\JsExpression;
     use yii\helpers\Url;
     use frontend\models\Images;
+    use frontend\models\Thumbnails;
+    use yii\helpers\Html;
 ?>
 <div class="load-form">
     <div class="row">
         <div class="col-lg-5">
+            
+            <h4>Picture</h4>
+            
+            <?php 
+                 $thumbnail = \yii\helpers\ArrayHelper::getColumn($image->thumbnails, function ($element) {
+                     if ($element['type'] == Thumbnails::SMALL_TYPE) {
+                         return $element['path'];
+                     }
+                 });
+
+                echo Html::img($thumbnail[0]);
+            ?>
+            
+            <br><br>
+            
             <?php $form = ActiveForm::begin([
                     //'enableAjaxValidation' => true,
                 ]) ?>
