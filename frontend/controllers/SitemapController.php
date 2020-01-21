@@ -23,13 +23,14 @@ class SitemapController extends Controller
         $urls[] = '/site/contact';
         
         //get images urls
-        $images = Images::find()->select('id, translit_name')->where(['status' => Images::PUBLIC_STATUS])->asArray()->all();
+        $images = Images::find()->select('id, translit_name')
+                ->where(['status' => Images::PUBLIC_STATUS])->asArray()->all();
         foreach ($images as $image) {
             $urls[] = '/image/' . $image['id'] . '-' . $image['translit_name'];
         }
         
         //get tags urls
-        $tags = Tags::find()->select('translit_title')->where(['not', ['translit_title' => null]])->asArray()->all();
+        $tags = Tags::getTagsQuery()->andWhere(['not', ['tags.translit_title' => null]])->asArray()->all();
         foreach ($tags as $tag) {
             $urls[] = '/tag/' . $tag['translit_title'];
         }

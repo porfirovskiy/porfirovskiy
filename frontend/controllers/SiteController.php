@@ -87,7 +87,7 @@ class SiteController extends Controller
             ->where(['thumbnails.type' => Thumbnails::SMALL_TYPE])
             ->andWhere(['in', 'images.status', Images::getCurrentStatusValues()])
             ->orderBy(new Expression('rand()'))
-            ->limit(15)->all();
+            ->limit(16)->all();
         //get tags
         $randomTags = Tags::getTagsQuery()
             ->orderBy(new Expression('rand()'))
