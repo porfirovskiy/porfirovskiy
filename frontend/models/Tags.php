@@ -143,6 +143,7 @@ class Tags extends \yii\db\ActiveRecord
         return self::find()->select('tags.title, tags.translit_title')
                 ->innerJoin('images_tags', 'images_tags.tag_id = tags.id')
                 ->innerJoin('images', 'images.id = images_tags.image_id')
-                ->where(['in', 'status', Images::getCurrentStatusValues()]);
+                ->where(['in', 'status', Images::getCurrentStatusValues()])
+                ->distinct();
     }
 }
