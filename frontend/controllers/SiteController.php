@@ -89,8 +89,7 @@ class SiteController extends Controller
             ->orderBy(new Expression('rand()'))
             ->limit(15)->all();
         //get tags
-        $randomTags = Tags::find()
-            ->select('title, translit_title')
+        $randomTags = Tags::getTagsQuery()
             ->orderBy(new Expression('rand()'))
             ->limit(10)->all();
         

@@ -6,6 +6,7 @@ use Yii;
 
 use yii\helpers\ArrayHelper;
 use frontend\models\ImagesTags;
+use frontend\models\Images;
 
 /**
  * This is the model class for table "tags".
@@ -130,5 +131,18 @@ class Tags extends \yii\db\ActiveRecord
                 ->where(['in', 'title', $titles])
                 ->asArray()
                 ->all();
+    }
+    
+    /**
+     * Get tags query object with access 
+     * of private or public images status
+     * @return type
+     */
+    public static function getTagsQuery()
+    {
+        return self::find()->select('tags.title, tags.translit_title')
+                ->innerJoin('images_tags', 'images_tags.tag_id = tags.id')
+                ->innerJoin('images', 'images.id = images_tags.image_id')
+                ->where(['in', 'status', Images::getCurrentStatusValues()]);
     }
 }

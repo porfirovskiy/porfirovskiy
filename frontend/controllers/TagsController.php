@@ -11,7 +11,7 @@ class TagsController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        $query = Tags::find()->select('title, translit_title');
+        $query = Tags::getTagsQuery();
         
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 50]);
