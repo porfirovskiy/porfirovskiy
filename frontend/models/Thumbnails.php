@@ -109,8 +109,20 @@ class Thumbnails extends \yii\db\ActiveRecord
         Image::thumbnail($model->imagePath, $width, $hight, \Imagine\Image\ManipulatorInterface::THUMBNAIL_INSET)
             ->save($path, ['quality' => self::THUMBNAIL_QUALITY]);
         
-        //TODO move saving to db in other method!!!
-        //save thumbnail info to db    
+        $this->saveThumbnail($path, $width, $hight, $type, $imageId);
+    }
+    
+    /**
+     * Save thumbnail into to db 
+     * @param string $path
+     * @param string $width
+     * @param string $hight
+     * @param string $type
+     * @param int $imageId
+     * @return void
+     */
+    private function saveThumbnail(string $path, string $width, string $hight, string $type, int $imageId): void
+    {
         $thumbnail = new Thumbnails();
         $thumbnail->path = $path;
         $thumbnail->type = $type;

@@ -42,6 +42,7 @@ AppAsset::register($this);
     if (!Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => \Yii::t('common', 'Upload'), 'url' => ['/image/upload']];
         $menuItems[] = ['label' => \Yii::t('common', 'Upload By Url'), 'url' => ['/image/upload-by-url']];
+        $menuItems[] = ['label' => \Yii::t('common', 'MultipleUpload'), 'url' => ['/image/multiple-upload']];
     }
     $menuItems[] = ['label' => \Yii::t('common', 'Tags'), 'url' => ['/tags']];
     $menuItems[] = ['label' => \Yii::t('common', 'About'), 'url' => ['/site/about']];

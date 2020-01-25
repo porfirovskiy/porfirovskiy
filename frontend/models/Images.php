@@ -4,6 +4,9 @@ namespace frontend\models;
 
 use Yii;
 use common\models\User;
+use frontend\models\Tags;
+use frontend\models\Thumbnails;
+use frontend\models\Descriptions;
 
 /**
  * This is the model class for table "images".
@@ -132,11 +135,56 @@ class Images extends \yii\db\ActiveRecord
      * access to images from guests and admin
      * @return array
      */
-    public static function getCurrentStatusValues(): array {
+    public static function getCurrentStatusValues(): array 
+    {
         if(Yii::$app->user->isGuest) {
             return [self::PUBLIC_STATUS];
         } else {
             return [self::PUBLIC_STATUS, self::PRIVATE_STATUS];
         }
+    }
+    
+    public function saveCurrentImage(UploadForm $model): void
+    {
+        $this->name = $model->name;
+        $this->source = $model->source;
+        $this->translit_name = \yii\helpers\Inflector::slug($this->name, '-');
+        $this->origin_name = $model->imageFile->baseName;
+        $this->path = str_replace($model->dir, '', $model->imagePath);
+        $this->hash = $model->hash;
+        $imageParams = $model->getImageParams($model->imagePath);
+        $this->width = $imageParams['width'];
+        $this->hight = $imageParams['hight'];
+        $this->size = $model->imageFile->size;
+        $this->user_id = \Yii::$app->user->identity->id;
+        $this->status = $model->status;
+        $this->created = date('Y-m-d H:i:s');
+        if ($this->save()) {
+            $this->saveImageRelativesEntities($model);
+            Yii::$app->session->setFlash('success', \Yii::t('common', 'Image saved!'));
+        } else {
+            Yii::$app->session->setFlash('error', \Yii::t('common', 'Model not saved!'));
+        }
+    }
+    
+    /**
+     * Save image tags, desc., exif, thumbnails 
+     * @param \frontend\models\UploadForm $model
+     * @return void
+     */
+    public function saveImageRelativesEntities(UploadForm $model): void
+    {
+        $imageId = $this->getPrimaryKey();
+        //save tags to db
+        $tagsModel = new Tags();
+        $tagsModel->saveImageTags($model->tags, $imageId);
+        //save image exif to db
+        $exifModel = new Exif();
+        $exifModel->saveData($model->imagePath, $imageId);
+        //save description
+        $this->saveDescription($model->description, $imageId);
+        //make thumbnails
+        $thumbnailsModel = new Thumbnails();
+        $thumbnailsModel->makeThumbnails($model, $imageId);
     }
 }

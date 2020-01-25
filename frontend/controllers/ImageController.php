@@ -17,6 +17,7 @@ use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use frontend\models\Comments;
 use frontend\models\UploadUrlForm;
+use frontend\models\MultipleUploadForm;
 
 class ImageController extends Controller
 {
@@ -68,36 +69,7 @@ class ImageController extends Controller
             if ($model->upload()) {                               
                 //save image data to db
                 $image = new Images();
-                $image->name = $model->name;
-                $image->source = $model->source;
-                $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
-                $image->origin_name = $model->imageFile->baseName;
-                $image->path = str_replace($model->dir, '', $model->imagePath);
-                $image->hash = $model->hash;
-                $imageParams = $model->getImageParams($model->imagePath);
-                $image->width = $imageParams['width'];
-                $image->hight = $imageParams['hight'];
-                $image->size = $model->imageFile->size;
-                $image->user_id = \Yii::$app->user->identity->id;
-                $image->status = $model->status;
-                $image->created = date('Y-m-d H:i:s');
-                if ($image->save()) {
-                    $imageId = $image->getPrimaryKey();
-                    //save tags to db
-                    $tagsModel = new Tags();
-                    $tagsModel->saveImageTags($model->tags, $imageId);
-                    //save image exif to db
-                    $exifModel = new Exif();
-                    $exifModel->saveData($model->imagePath, $imageId);
-                    //save description
-                    $image->saveDescription($model->description, $imageId);
-                    //make thumbnails
-                    $thumbnailsModel = new Thumbnails();
-                    $thumbnailsModel->makeThumbnails($model, $imageId);
-                    Yii::$app->session->setFlash('success', \Yii::t('common', 'Image saved!'));
-                } else {
-                    Yii::$app->session->setFlash('error', \Yii::t('common', 'Model not saved!'));
-                }
+                $image->saveCurrentImage($model);
             }
         }
             
@@ -132,18 +104,7 @@ class ImageController extends Controller
                 $image->status = $model->status;
                 $image->created = date('Y-m-d H:i:s');
                 if ($image->save()) {
-                    $imageId = $image->getPrimaryKey();
-                    //save tags to db
-                    $tagsModel = new Tags();
-                    $tagsModel->saveImageTags($model->tags, $imageId);
-                    //save image exif to db
-                    $exifModel = new Exif();
-                    $exifModel->saveData($model->imagePath, $imageId);
-                    //save description
-                    $image->saveDescription($model->description, $imageId);
-                    //make thumbnails
-                    $thumbnailsModel = new Thumbnails();
-                    $thumbnailsModel->makeThumbnails($model, $imageId);
+                    $image->saveImageRelativesEntities($model);
                     Yii::$app->session->setFlash('success', \Yii::t('common', 'Image saved!'));
                 } else {
                     Yii::$app->session->setFlash('error', \Yii::t('common', 'Model not saved!'));
@@ -156,6 +117,45 @@ class ImageController extends Controller
         return $this->render('upload', [
             'model' => $model,
             'formType' => UploadUrlForm::FORM_TYPE_URL
+        ]);
+    }
+    
+    public function actionMultipleUpload()
+    {
+        $model = new MultipleUploadForm();
+        $request = Yii::$app->request;
+        $model->load($request->post());
+        if ($request->isPost) {
+            $model->imageFiles = UploadedFile::getInstances($model, 'imageFiles');
+            if ($model->upload()) {                               
+                //save image data to db
+                $image = new Images();
+                $image->name = $model->name;
+                $image->source = $model->source;
+                $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
+                $image->origin_name = $model->imageFile->baseName;
+                $image->path = str_replace($model->dir, '', $model->imagePath);
+                $image->hash = $model->hash;
+                $imageParams = $model->getImageParams($model->imagePath);
+                $image->width = $imageParams['width'];
+                $image->hight = $imageParams['hight'];
+                $image->size = $model->imageFile->size;
+                $image->user_id = \Yii::$app->user->identity->id;
+                $image->status = $model->status;
+                $image->created = date('Y-m-d H:i:s');
+                if ($image->save()) {
+                    $image->saveImageRelativesEntities($model);
+                    Yii::$app->session->setFlash('success', \Yii::t('common', 'Image saved!'));
+                } else {
+                    Yii::$app->session->setFlash('error', \Yii::t('common', 'Model not saved!'));
+                }
+            }
+        }
+            
+        $model->status = 'public';
+        
+        return $this->render('multiple_upload', [
+            'model' => $model
         ]);
     }
     
