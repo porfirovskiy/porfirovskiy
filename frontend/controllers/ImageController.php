@@ -69,7 +69,7 @@ class ImageController extends Controller
             if ($model->upload()) {                               
                 //save image data to db
                 $image = new Images();
-                $image->saveCurrentImage($model);
+                $image->saveCurrentImage($model, UploadUrlForm::FORM_TYPE_FILE);
             }
         }
             
@@ -90,25 +90,7 @@ class ImageController extends Controller
             if ($model->upload()) {                               
                 //save image data to db
                 $image = new Images();
-                $image->name = $model->name;
-                $image->source = $model->source;
-                $image->translit_name = \yii\helpers\Inflector::slug($image->name, '-');
-                $image->origin_name = $model->imageUrl;
-                $image->path = str_replace($model->dir, '', $model->imagePath);
-                $image->hash = $model->hash;
-                $imageParams = $model->getImageParams($model->imagePath);
-                $image->width = $imageParams['width'];
-                $image->hight = $imageParams['hight'];
-                $image->size = filesize($model->imagePath);
-                $image->user_id = \Yii::$app->user->identity->id;
-                $image->status = $model->status;
-                $image->created = date('Y-m-d H:i:s');
-                if ($image->save()) {
-                    $image->saveImageRelativesEntities($model);
-                    Yii::$app->session->setFlash('success', \Yii::t('common', 'Image saved!'));
-                } else {
-                    Yii::$app->session->setFlash('error', \Yii::t('common', 'Model not saved!'));
-                }
+                $image->saveCurrentImage($model, UploadUrlForm::FORM_TYPE_URL);
             }
         }
         

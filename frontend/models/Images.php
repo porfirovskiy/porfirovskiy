@@ -144,18 +144,24 @@ class Images extends \yii\db\ActiveRecord
         }
     }
     
-    public function saveCurrentImage(UploadForm $model): void
+    /**
+     * Save current image to db
+     * @param \frontend\models\UploadForm $model
+     * @param string $formType
+     * @return void
+     */
+    public function saveCurrentImage(UploadForm $model, string $formType): void
     {
         $this->name = $model->name;
         $this->source = $model->source;
         $this->translit_name = \yii\helpers\Inflector::slug($this->name, '-');
-        $this->origin_name = $model->imageFile->baseName;
+        $this->origin_name = ($formType == UploadForm::FORM_TYPE_FILE) ? $model->imageFile->baseName : $model->imageUrl;
         $this->path = str_replace($model->dir, '', $model->imagePath);
         $this->hash = $model->hash;
         $imageParams = $model->getImageParams($model->imagePath);
         $this->width = $imageParams['width'];
         $this->hight = $imageParams['hight'];
-        $this->size = $model->imageFile->size;
+        $this->size = ($formType == UploadForm::FORM_TYPE_FILE) ? $model->imageFile->size : filesize($model->imagePath);
         $this->user_id = \Yii::$app->user->identity->id;
         $this->status = $model->status;
         $this->created = date('Y-m-d H:i:s');
