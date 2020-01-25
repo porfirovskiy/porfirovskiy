@@ -31,13 +31,17 @@ class MultipleUploadForm extends UploadForm
         ];
     }
     
+    /**
+     * Upload images
+     * @return bool
+     */
     public function upload(): bool
     {
         if ($this->validate()) {
-            foreach ($this->imageFiles as $file) {
-                $this->saveCurrentImage($file);
+            foreach ($this->imageFiles as $key => $file) {
+                $this->saveCurrentImage($key, $file);
             }
-            
+            //echo '<pre>';var_dump($this);
             if (!empty($this->images)) {
                 return true;
             }
@@ -50,7 +54,13 @@ class MultipleUploadForm extends UploadForm
         }
     }
     
-    protected function saveCurrentImage(UploadedFile $file): void
+    /**
+     * Save current image on server
+     * @param int $key
+     * @param UploadedFile $file
+     * @return void
+     */
+    protected function saveCurrentImage(int $key, UploadedFile $file): void
     {
         $this->imageName = $this->getUniqName();
         $this->imageExtension = $file->extension;
@@ -62,19 +72,40 @@ class MultipleUploadForm extends UploadForm
             unlink($this->imagePath);
             \Yii::$app->session->setFlash('error', 'Error -> file already exist');
         } else {
-            $this->addImageToStorage();
+            $this->addImageToStorage($key);
         }
     }
     
-    protected function addImageToStorage(): void
+    /**
+     * Add image to "images" property
+     * @param int $key
+     * @return void
+     */
+    protected function addImageToStorage(int $key): void
     {
         $image = new \stdClass();
         $image->imageName = $this->imageName;
-        $image->imageExtension = $this->imageExtension;
         $image->imagePath = $this->imagePath;
+        $image->hash = $this->hash;
         
-        $this->images[] = $image;
-        
+        $this->images[$key] = $image;
+    }
+    
+    /**
+     * Save all images data into db
+     * @return void
+     */
+    public function saveCurrentMultipleImages(): void
+    {
+        foreach ($this->images as $key => $image) {
+            $this->imageName = $image->imageName;
+            $this->imagePath = $image->imagePath;
+            $this->hash = $image->hash;
+            $this->imageFile = $this->imageFiles[$key];
+            
+            $images = new Images();
+            $images->saveCurrentImage($this, self::FORM_TYPE_FILE);
+        }
     }
     
 }

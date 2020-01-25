@@ -7,6 +7,7 @@ use common\models\User;
 use frontend\models\Tags;
 use frontend\models\Thumbnails;
 use frontend\models\Descriptions;
+use frontend\models\MultipleUploadForm;
 
 /**
  * This is the model class for table "images".
@@ -161,7 +162,7 @@ class Images extends \yii\db\ActiveRecord
         $imageParams = $model->getImageParams($model->imagePath);
         $this->width = $imageParams['width'];
         $this->hight = $imageParams['hight'];
-        $this->size = ($formType == UploadForm::FORM_TYPE_FILE) ? $model->imageFile->size : filesize($model->imagePath);
+        $this->size = filesize($model->imagePath);
         $this->user_id = \Yii::$app->user->identity->id;
         $this->status = $model->status;
         $this->created = date('Y-m-d H:i:s');
@@ -178,7 +179,7 @@ class Images extends \yii\db\ActiveRecord
      * @param \frontend\models\UploadForm $model
      * @return void
      */
-    public function saveImageRelativesEntities(UploadForm $model): void
+    protected function saveImageRelativesEntities(UploadForm $model): void
     {
         $imageId = $this->getPrimaryKey();
         //save tags to db
@@ -193,4 +194,5 @@ class Images extends \yii\db\ActiveRecord
         $thumbnailsModel = new Thumbnails();
         $thumbnailsModel->makeThumbnails($model, $imageId);
     }
+    
 }
