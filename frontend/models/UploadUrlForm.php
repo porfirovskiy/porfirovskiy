@@ -36,7 +36,7 @@ class UploadUrlForm extends UploadForm
                 //check if file already exist by checksum
                 if (!$this->isUniqueCheckSum($this->imagePath)) {
                     unlink($this->imagePath);
-                    \Yii::$app->session->setFlash('error', 'Error -> file already exist');
+                    \Yii::$app->session->addFlash('error', "Error -> file [$this->imageUrl] already exist");
                     return false;
                 }
             } else {
@@ -44,7 +44,7 @@ class UploadUrlForm extends UploadForm
             }
             return true;
         } else {
-            \Yii::$app->session->setFlash('error', 'Error -> ' . serialize($this->getErrors()));
+            \Yii::$app->session->addFlash('error', 'Error -> ' . serialize($this->getErrors()));
             return false;
         }
     }
@@ -57,7 +57,7 @@ class UploadUrlForm extends UploadForm
                 return false;
             }
         } catch (Exception $e) {
-            \Yii::$app->session->setFlash('error', 'Error -> ' . $e->getMessage());
+            \Yii::$app->session->addFlash('error', 'Error -> ' . $e->getMessage());
             return false;
         }  
     }

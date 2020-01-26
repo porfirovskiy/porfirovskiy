@@ -24,6 +24,10 @@
                 ?>
 
                 <?= $form->field($model, 'name') ?>
+            
+                <?= $form->field($model, 'delimiter') ?>
+            
+                <?= $form->field($model, 'endPart') ?>
 
                 <?= $form->field($model, 'source') ?>
             

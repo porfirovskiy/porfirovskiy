@@ -53,12 +53,12 @@ class UploadForm extends Model
             //check if file already exist by checksum
             if (!$this->isUniqueCheckSum($this->imagePath)) {
                 unlink($this->imagePath);
-                \Yii::$app->session->setFlash('error', 'Error -> file already exist');
+                \Yii::$app->session->addFlash('error', "Error -> file [$this->imageFile] already exist");
                 return false;
             }
             return true;
         } else {
-            \Yii::$app->session->setFlash('error', 'Error -> ' . serialize($this->getErrors()));
+            \Yii::$app->session->addFlash('error', 'Error -> ' . serialize($this->getErrors()));
             return false;
         }
     }

@@ -8,16 +8,22 @@ use yii\web\UploadedFile;
 class MultipleUploadForm extends UploadForm
 {
     
+    const DELIMITER_LEVEL = 1;
+    
     public $imageFiles;
     public $images = [];
-    
-    
+    public $delimiter = '';
+    public $endPart = '';
+
+
+
+
     public function rules()
     {
         return [
             [['name'], 'required', 'message' => 'Please choose a name.'],
             [['name'], 'string', 'max' => 255],
-            [['description', 'source', 'status'], 'string'],
+            [['description', 'source', 'status', 'delimiter', 'endPart'], 'string'],
             [['hash'], 'unique', 'targetClass' => 'frontend\models\Images'],
             [['tags'], 'required', 'message' => 'Please choose a tags.'],
             [
@@ -41,7 +47,7 @@ class MultipleUploadForm extends UploadForm
             foreach ($this->imageFiles as $key => $file) {
                 $this->saveCurrentImage($key, $file);
             }
-            //echo '<pre>';var_dump($this);
+            
             if (!empty($this->images)) {
                 return true;
             }
@@ -70,7 +76,7 @@ class MultipleUploadForm extends UploadForm
         //check if file already exist by checksum
         if (!$this->isUniqueCheckSum($this->imagePath)) {
             unlink($this->imagePath);
-            \Yii::$app->session->setFlash('error', 'Error -> file already exist');
+            \Yii::$app->session->addFlash('error', "Error -> file [$file->baseName.$file->extension] already exist");
         } else {
             $this->addImageToStorage($key);
         }
@@ -97,7 +103,10 @@ class MultipleUploadForm extends UploadForm
      */
     public function saveCurrentMultipleImages(): void
     {
+        $number = 1;
+        $beginPartOfName = $this->name;
         foreach ($this->images as $key => $image) {
+            $this->name = $beginPartOfName . $this->getEndPartOfName($number);
             $this->imageName = $image->imageName;
             $this->imagePath = $image->imagePath;
             $this->hash = $image->hash;
@@ -105,7 +114,22 @@ class MultipleUploadForm extends UploadForm
             
             $images = new Images();
             $images->saveCurrentImage($this, self::FORM_TYPE_FILE);
+            
+            $number++;
         }
+    }
+    
+    /**
+     * Get end part to name by delimiter and number
+     * @param int $number
+     * @return string
+     */
+    protected function getEndPartOfName(int $number): string 
+    {
+        if ($number > self::DELIMITER_LEVEL && !empty($this->delimiter) && !empty($this->endPart)) {
+            return $this->delimiter . ' ' . $this->endPart . ' ' . $number;
+        }
+        return '';
     }
     
 }

@@ -168,9 +168,9 @@ class Images extends \yii\db\ActiveRecord
         $this->created = date('Y-m-d H:i:s');
         if ($this->save()) {
             $this->saveImageRelativesEntities($model);
-            Yii::$app->session->setFlash('success', \Yii::t('common', 'Image saved!'));
+            Yii::$app->session->addFlash('success', \Yii::t('common', "Image [$this->origin_name] saved!"));
         } else {
-            Yii::$app->session->setFlash('error', \Yii::t('common', 'Model not saved!'));
+            Yii::$app->session->addFlash('error', \Yii::t('common', "Model not saved for image [$this->origin_name]!"));
         }
     }
     
