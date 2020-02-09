@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use yii\web\Controller;
 use frontend\models\Tags;
 use frontend\models\Images;
+use frontend\models\Thumbnails;
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -43,6 +44,34 @@ class SitemapController extends Controller
         return $this->renderPartial('index', [
             'host' => \Yii::$app->request->hostInfo,
             'urls' => $urls
+        ]);        
+    }
+    
+    public function actionImages()
+    {
+        $urls = [];
+        
+        //get images
+        $images = Images::find()
+                    ->select([
+                        'images.name',
+                        'thumbnails.path', 
+                        new \yii\db\Expression("CONCAT('/image/', images.id, '-', images.translit_name) as url")
+                    ])
+                    ->innerJoin('thumbnails', 'thumbnails.image_id = images.id')
+                    ->where(['images.status' => Images::PUBLIC_STATUS])
+                    ->andWhere(['thumbnails.type' => Thumbnails::BIG_TYPE])
+                    ->asArray()
+                    ->all();
+        
+        //set content type xml in response
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_RAW;
+        $headers = \Yii::$app->response->headers;
+        $headers->add('Content-Type', 'text/xml');
+        
+        return $this->renderPartial('images', [
+            'host' => \Yii::$app->request->hostInfo,
+            'images' => $images
         ]);        
     }
 }
