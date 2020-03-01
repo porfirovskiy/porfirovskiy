@@ -28,10 +28,10 @@ class Pages extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'content', 'created'], 'required'],
+            [['title', 'content', 'created'], 'required'],
             [['content'], 'string'],
             [['created'], 'safe'],
-            [['name'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
         ];
     }
 
@@ -42,7 +42,7 @@ class Pages extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'title' => 'Name',
             'content' => 'Content',
             'created' => 'Created',
         ];
