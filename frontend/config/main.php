@@ -44,7 +44,8 @@ return [
                 'defaultRoute' => '/site/index',
                 'image/<id:\d+>-<name:.+>' => 'image/view',
                 'tags' => 'tags/index',
-                'tag/<title:.+>' => 'tags/view'
+                'tag/<title:.+>' => 'tags/view',
+                'pages/<id:\d+>-<title:.+>' => 'pages/view'
             ],
         ],
         'mailer' => [

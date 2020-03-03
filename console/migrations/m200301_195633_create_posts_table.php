@@ -15,6 +15,7 @@ class m200301_195633_create_posts_table extends Migration
         $this->createTable('{{%pages}}', [
             'id' => $this->primaryKey(),
             'title' => $this->string(255)->notNull(),
+            'translit_title' => $this->string(255)->notNull(),
             'content' => $this->text()->notNull(),
             'created' => $this->dateTime()->notNull()
         ]);

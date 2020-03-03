@@ -53,8 +53,10 @@ AppAsset::register($this);
         $menuItems[] = ['label' => \Yii::t('common', 'Upload'), 'url' => ['/image/upload']];
         $menuItems[] = ['label' => \Yii::t('common', 'Upload By Url'), 'url' => ['/image/upload-by-url']];
         $menuItems[] = ['label' => \Yii::t('common', 'MultipleUpload'), 'url' => ['/image/multiple-upload']];
+        $menuItems[] = ['label' => \Yii::t('common', 'Create Page'), 'url' => ['/pages/create']];
     }
     $menuItems[] = ['label' => \Yii::t('common', 'Tags'), 'url' => ['/tags']];
+    $menuItems[] = ['label' => \Yii::t('common', 'Pages'), 'url' => ['/pages']];
     $menuItems[] = ['label' => \Yii::t('common', 'About'), 'url' => ['/site/about']];
     $menuItems[] = ['label' => \Yii::t('common', 'Contact'), 'url' => ['/site/contact']];
 

@@ -43,6 +43,7 @@ class PageForm extends Model
     {
         $model = new Pages();
         $model->title = $this->title;
+        $model->translit_title = \yii\helpers\Inflector::slug($this->title, '-');
         $model->content = $this->content;
         $model->created = date('Y-m-d H:i:s');
         

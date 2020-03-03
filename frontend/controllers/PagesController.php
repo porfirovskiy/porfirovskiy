@@ -3,24 +3,45 @@
 namespace frontend\controllers;
 
 use frontend\models\PageForm;
+use frontend\models\Pages;
 use Yii;
+use yii\filters\AccessControl;
+use yii\data\Pagination;
 
 class PagesController extends \yii\web\Controller
 {
+    
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['create'],
+                        'roles' => ['@'],
+                    ]
+                ],
+            ],
+        ];
+    }
+    
     public function actionIndex()
     {
-        /*$query = Tags::getTagsQuery();
+        $query = Pages::find();
         
         $countQuery = clone $query;
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 50]);
-        $tags = $query->offset($pages->offset)
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+        $pagesList = $query->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
         
         return $this->render('index', [
-            'tags' => $tags,
+            'pagesList' => $pagesList,
             'pages' => $pages
-        ]);*/
+        ]);
     }
     
     public function actionCreate() {

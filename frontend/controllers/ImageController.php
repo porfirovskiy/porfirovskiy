@@ -27,11 +27,11 @@ class ImageController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['upload'],
+                'only' => ['upload', 'upload-by-url', 'multiple-upload'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['upload'],
+                        'actions' => ['upload', 'upload-by-url', 'multiple-upload'],
                         'roles' => ['@'],
                     ]
                 ],
