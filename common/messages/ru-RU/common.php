@@ -32,6 +32,7 @@ return [
     'Created' => 'Создано',
     'Portal of images - karkaron.com' => 'Портал изображений - karkaron.com',
     'Uploaded' => 'Загружено',
-    'Status' => 'Статус'
+    'Status' => 'Статус',
+    'Pages' => 'Страницы'
     
 ];

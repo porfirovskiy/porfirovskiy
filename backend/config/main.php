@@ -37,14 +37,16 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
-        'urlManager' => [
+        /*'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                'defaultRoute' => '/site/index',
+                'pages' => 'pages/index',
+                'pages/<id:\d+>' => '/pages/update',
+                //'image/<id:\d+>-<name:.+>' => 'image/view',
             ],
-        ],
-        */
+        ],*/
     ],
     'params' => $params,
 ];

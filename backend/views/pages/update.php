@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = Yii::t('common', 'Create page');
+$this->title = Yii::t('common', 'Update page');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-contact">

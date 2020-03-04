@@ -61,5 +61,18 @@ class PagesController extends \yii\web\Controller
         }
     }
 
+    /**
+     * 
+     * @param int $id
+     * @return type
+     */
+    public function actionView(int $id) 
+    {
+        $page = Pages::find()->where(['id' => $id])->one();
+        
+        return $this->render('view', [
+            'page' => $page
+        ]);
+    }
 
 }

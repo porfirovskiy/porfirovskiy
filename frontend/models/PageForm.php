@@ -49,4 +49,13 @@ class PageForm extends Model
         
         return $model->save();
     }
+    
+    public function update(int $id): bool
+    {
+        $page = Pages::findOne(['id' => $id]);
+        $page->title = $this->title;
+        $page->content = $this->content;
+        $page->translit_title = \yii\helpers\Inflector::slug($this->title, '-');
+        return $page->update();
+    }
 }
