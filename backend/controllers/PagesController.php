@@ -51,6 +51,7 @@ class PagesController extends Controller
         //set standart fields
         $model->title = $page->title;
         $model->content = $page->content;
+        $model->status = $page->status;
         
         if (Yii::$app->request->isPost) {
             $model->load(Yii::$app->request->post());

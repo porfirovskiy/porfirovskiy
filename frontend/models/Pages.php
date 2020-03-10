@@ -14,6 +14,9 @@ use Yii;
  */
 class Pages extends \yii\db\ActiveRecord
 {
+    const PUBLIC_STATUS = 'public';
+    const PRIVATE_STATUS = 'private';
+
     /**
      * {@inheritdoc}
      */
@@ -30,7 +33,7 @@ class Pages extends \yii\db\ActiveRecord
         return [
             [['title', 'content', 'created'], 'required'],
             [['content'], 'string'],
-            [['created'], 'safe'],
+            [['created', 'status'], 'safe'],
             [['title'], 'string', 'max' => 255],
         ];
     }
@@ -44,7 +47,21 @@ class Pages extends \yii\db\ActiveRecord
             'id' => 'ID',
             'title' => 'Name',
             'content' => 'Content',
-            'created' => 'Created',
+            'status' => 'Status',
+            'created' => 'Created'
         ];
+    }
+    
+    /**
+     * Get current statuses for page
+     * @return array
+     */
+    public static function getCurrentStatuses(): array 
+    {
+        if(Yii::$app->user->isGuest) {
+            return [self::PUBLIC_STATUS];
+        } else {
+            return [self::PUBLIC_STATUS, self::PRIVATE_STATUS];
+        }
     }
 }

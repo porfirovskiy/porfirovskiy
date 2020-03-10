@@ -14,6 +14,7 @@ $this->title = 'List of images';
                 'id',
                 'created',
                 'title',
+                'status',
                 [
                     'class' => 'yii\grid\ActionColumn',
                     'header'=>'Действия', 

@@ -13,6 +13,7 @@ class PageForm extends Model
 {
     public $title;
     public $content;
+    public $status;
 
     /**
      * {@inheritdoc}
@@ -20,7 +21,7 @@ class PageForm extends Model
     public function rules()
     {
         return [
-            [['title', 'content'], 'required'],
+            [['title', 'content', 'status'], 'required'],
         ];
     }
     
@@ -31,7 +32,8 @@ class PageForm extends Model
     {
         return [
             'title' => Yii::t('common', 'Title'),
-            'content' => Yii::t('common', 'Content')
+            'content' => Yii::t('common', 'Content'),
+            'status' => Yii::t('common', 'Status')
         ];
     }
 
@@ -45,6 +47,7 @@ class PageForm extends Model
         $model->title = $this->title;
         $model->translit_title = \yii\helpers\Inflector::slug($this->title, '-');
         $model->content = $this->content;
+        $model->status = $this->status;
         $model->created = date('Y-m-d H:i:s');
         
         return $model->save();
@@ -55,6 +58,7 @@ class PageForm extends Model
         $page = Pages::findOne(['id' => $id]);
         $page->title = $this->title;
         $page->content = $this->content;
+        $page->status = $this->status;
         $page->translit_title = \yii\helpers\Inflector::slug($this->title, '-');
         return $page->update();
     }

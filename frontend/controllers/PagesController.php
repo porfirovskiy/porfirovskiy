@@ -30,7 +30,7 @@ class PagesController extends \yii\web\Controller
     
     public function actionIndex()
     {
-        $query = Pages::find();
+        $query = Pages::find()->andWhere(['in', 'status', Pages::getCurrentStatuses()]);
         
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
@@ -68,7 +68,11 @@ class PagesController extends \yii\web\Controller
      */
     public function actionView(int $id) 
     {
-        $page = Pages::find()->where(['id' => $id])->one();
+        $page = Pages::find()->where(['id' => $id])->andWhere(['in', 'status', Pages::getCurrentStatuses()])->one();
+        
+        if (is_null($page)) {
+            throw new \yii\web\NotFoundHttpException(\Yii::t('common', 'Page not found'));
+        }
         
         return $this->render('view', [
             'page' => $page
