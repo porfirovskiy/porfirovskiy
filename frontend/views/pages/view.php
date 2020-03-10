@@ -11,7 +11,11 @@ $this->params['breadcrumbs'][] = $this->title;
         text-align: center;
     }
     
-    .page-wrapper .row {
+    .image-wrapper {
+        text-align: center;
+    }
+    
+    .page-wrapper .row p {
         text-align: justify;
         width: 70%;
         display: inline-block;
@@ -24,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <br>
     
     <div class="row">
-            <?= nl2br($page->content); ?>
+            <?= $page->content; ?>
     </div>
 
 </div>
