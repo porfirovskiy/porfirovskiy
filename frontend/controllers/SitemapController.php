@@ -5,6 +5,7 @@ use yii\web\Controller;
 use frontend\models\Tags;
 use frontend\models\Images;
 use frontend\models\Thumbnails;
+use frontend\models\Pages;
 
 /* 
  * To change this license header, choose License Headers in Project Properties.
@@ -34,6 +35,13 @@ class SitemapController extends Controller
         $tags = Tags::getTagsQuery()->andWhere(['not', ['tags.translit_title' => null]])->asArray()->all();
         foreach ($tags as $tag) {
             $urls[] = '/tag/' . $tag['translit_title'];
+        }
+        
+        //get pages urls
+        $pages = Pages::find()->select('id, translit_title')
+                ->where(['status' => Pages::PUBLIC_STATUS])->asArray()->all();
+        foreach ($pages as $page) {
+            $urls[] = '/pages/' . $page['id'] . '-' . $page['translit_title'];
         }
         
         //set content type xml in response
