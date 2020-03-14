@@ -23,6 +23,7 @@ class SitemapController extends Controller
         $urls[] = '/tags';
         $urls[] = '/site/about';
         $urls[] = '/site/contact';
+        $urls[] = '/pages';
         
         //get images urls
         $images = Images::find()->select('id, translit_name')
