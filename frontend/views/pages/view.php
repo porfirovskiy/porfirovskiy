@@ -13,6 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
     
     .image-wrapper {
         text-align: center;
+        padding: 0 10px 0 10px;
+    }
+    
+    .image-wrapper img {
+        max-width: 100%;
     }
     
     .page-wrapper .row p {
