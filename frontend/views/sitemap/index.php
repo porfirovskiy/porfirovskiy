@@ -4,7 +4,7 @@
     <url>
         <loc><?php echo $host; ?><?php echo $url; ?></loc>
         <lastmod><?php echo date('Y-m-d'); ?></lastmod>
-        <changefreq>daily</changefreq>
+        <changefreq>weekly</changefreq>
         <priority>0.5</priority>
     </url>
     <?php endforeach; ?>
