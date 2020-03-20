@@ -11,11 +11,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
   <style>
     .tag {
-        display: inline-block;
-        border: 1px dotted green;
         padding: 5px;
         font-size: 16px;
-        margin: 4px;
      }
      
     .tag-wrap {
@@ -31,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
       <h1> <?= \Yii::t('common', 'Pages') ?>:</h1>
   </div>
 
-<div style="padding: 1%;text-align: center;">
+<div style="margin-top: 4%;">
     <?php foreach($pagesList as $page): ?>
         <div class="tag">
             <?= Html::a($page->title, ['pages/' . $page->id . '-' . $page->translit_title]) ?>
