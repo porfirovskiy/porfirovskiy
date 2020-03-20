@@ -34,7 +34,7 @@ class PagesController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => Pages::find(),
             'pagination' => [
-                'pageSize' => 10
+                'pageSize' => 20
             ],
         ]);
         

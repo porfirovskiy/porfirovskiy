@@ -33,7 +33,7 @@ class PagesController extends \yii\web\Controller
         $query = Pages::find()->andWhere(['in', 'status', Pages::getCurrentStatuses()]);
         
         $countQuery = clone $query;
-        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 10]);
+        $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 20]);
         $pagesList = $query->offset($pages->offset)
             ->limit($pages->limit)
             ->all();
