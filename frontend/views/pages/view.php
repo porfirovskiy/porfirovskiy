@@ -15,6 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     .image-comment-list {
         width: 70%;
     }
+
+    .image-wrapper {
+        text-align: center;
+        padding: 0 10px 0 10px;
+    }
     
     .image-wrapper img {
         max-width: 100%;
