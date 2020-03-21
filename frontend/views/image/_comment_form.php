@@ -10,7 +10,7 @@
     'action' => ['/image/add-comment']
 ]); ?>
 
-    <?= $form->field($commentModel, 'name')->textInput(['autofocus' => true, 'placeholder' => \Yii::t('common', 'Name')])->label(false) ?>
+    <?= $form->field($commentModel, 'name')->textInput(['autofocus' => false, 'placeholder' => \Yii::t('common', 'Name')])->label(false) ?>
 
     <?= $form->field($commentModel, 'comment')->textarea(['rows' => '3', 'placeholder' => \Yii::t('common', 'Comment')])->label(false) ?>
 
