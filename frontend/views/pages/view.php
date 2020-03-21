@@ -7,6 +7,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
   <style>
+
     .page-wrapper {
         text-align: center;
     }
@@ -25,6 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
         width: 70%;
         display: inline-block;
     }
+
+    @media (max-width: 800px) {
+        .page-wrapper .row p {
+            text-align: left;
+            width: 90%;
+        }
+    }
+
   </style>
 
 <div class="page-wrapper">
