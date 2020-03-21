@@ -33,6 +33,25 @@
     .images-wrapper .image {
         padding-bottom: 5%;
     }
+
+    @media (max-width: 1220px) {
+        .images-wrapper div[data-key] {
+            width: 30%;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .images-wrapper div[data-key] {
+            width: 40%;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .images-wrapper div[data-key] {
+            width: 55%;
+        }
+    }
+
 </style>
 
 <h2>Search</h2>
