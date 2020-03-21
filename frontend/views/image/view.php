@@ -9,9 +9,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
   <style>
-      .image {
+
+    .image {
           text-align: center;
-      }
+    }
+
+    .image img {
+        max-width: 100%;
+    }
+
     .image-params {
         color: gray;
     }

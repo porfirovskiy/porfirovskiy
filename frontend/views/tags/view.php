@@ -39,6 +39,25 @@ $this->params['breadcrumbs'][] = $title;
     .pager-wrap {
         text-align: center;
     }
+
+    @media (max-width: 1220px) {
+        .small-image {
+            width: 30%;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .small-image {
+            width: 40%;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .small-image {
+            width: 55%;
+        }
+    }
+
   </style>
 
   <div class="tag-wrap">

@@ -37,7 +37,25 @@ $this->title = \Yii::t('common', 'Portal of images - karkaron.com');
         font-size: 16px;
         margin: 4px;
      }
-    
+
+    @media (max-width: 1220px) {
+        .small-image {
+            width: 30%;
+        }
+    }
+
+    @media (max-width: 760px) {
+        .small-image {
+            width: 40%;
+        }
+    }
+
+    @media (max-width: 650px) {
+        .small-image {
+            width: 55%;
+        }
+    }
+
   </style>
 
 <div class="site-index">
