@@ -51,7 +51,15 @@ class Pages extends \yii\db\ActiveRecord
             'created' => 'Created'
         ];
     }
-    
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPageComments()
+    {
+        return $this->hasMany(PageComments::className(), ['page_id' => 'id']);
+    }
+
     /**
      * Get current statuses for page
      * @return array

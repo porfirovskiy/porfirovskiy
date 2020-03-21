@@ -33,6 +33,12 @@ return [
     'Portal of images - karkaron.com' => 'Портал изображений - karkaron.com',
     'Uploaded' => 'Загружено',
     'Status' => 'Статус',
-    'Pages' => 'Страницы'
+    'Pages' => 'Страницы',
+    'Add' => 'Добавить',
+    'Add comment' => 'Добавить комментарий',
+    'Comment' => 'Комментарий',
+    'Optional name' => 'Имя (необязательное)',
+    'Comments' => 'Комментарии'
+
     
 ];

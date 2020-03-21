@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use frontend\models\PageForm;
 use frontend\models\Pages;
+use frontend\models\PageComments;
 use Yii;
 use yii\filters\AccessControl;
 use yii\data\Pagination;
@@ -73,10 +74,32 @@ class PagesController extends \yii\web\Controller
         if (is_null($page)) {
             throw new \yii\web\NotFoundHttpException(\Yii::t('common', 'Page not found'));
         }
-        
+
+        $commentModel = new PageComments();
+
         return $this->render('view', [
-            'page' => $page
+            'page' => $page,
+            'commentModel' => $commentModel
         ]);
+    }
+
+    public function actionAddComment()
+    {
+        $model = new PageComments();
+        $model->created = date('Y-m-d H:i:s');
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->comment =  htmlspecialchars($model->comment);
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', \Yii::t('common', 'Comment saved!'));
+            } else {
+                \Yii::$app->session->setFlash('error', 'Error -> ' . serialize($model->getErrors()));
+            }
+        } else {
+            \Yii::$app->session->setFlash('error', 'Error -> ' . serialize($model->getErrors()));
+        }
+
+        return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
     }
 
 }

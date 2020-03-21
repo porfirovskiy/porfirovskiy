@@ -175,7 +175,6 @@ class ImageController extends Controller
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', \Yii::t('common', 'Comment saved!'));
             } else {
-                print_r($model->getErrors());die();
                 \Yii::$app->session->setFlash('error', 'Error -> ' . serialize($model->getErrors()));
             }
         } else {
