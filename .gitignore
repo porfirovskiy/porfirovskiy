@@ -51,3 +51,5 @@ phpunit.phar
 /images
 /thumbnails
 *.log
+
+ads.txt
