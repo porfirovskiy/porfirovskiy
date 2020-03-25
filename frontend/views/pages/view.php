@@ -65,7 +65,6 @@ $this->params['breadcrumbs'][] = $this->title;
   </style>
 
 <div class="page-wrapper">
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <ins class="adsbygoogle"
@@ -77,6 +76,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <script>
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
+
+    <br>
+
+    <h1><?= Html::encode($this->title) ?></h1>
 
     <br>
     
