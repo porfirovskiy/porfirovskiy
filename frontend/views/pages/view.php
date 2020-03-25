@@ -66,7 +66,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="page-wrapper">
     <h1><?= Html::encode($this->title) ?></h1>
-    
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <ins class="adsbygoogle"
+         style="display:block; text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-8218926731618294"
+         data-ad-slot="3840166065"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
     <br>
     
     <div class="row">
