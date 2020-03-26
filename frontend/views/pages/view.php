@@ -35,6 +35,18 @@ $this->params['breadcrumbs'][] = $this->title;
         width: 250px;
     }
 
+    .current-comment-title {
+        color: #08c;
+    }
+
+    .current-comment-text {
+        color: #789922;
+    }
+
+    .current-answer-text {
+        color: #698CC0;
+    }
+
     @media (min-width: 800px) {
         .image-comment-form {
             width: 40%;
