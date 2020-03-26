@@ -44,7 +44,11 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 
     .current-answer-text {
-        color: #698CC0;
+        color: black;
+    }
+
+    .current-answer-title {
+        color: #f89406;
     }
 
     @media (min-width: 800px) {
