@@ -21,7 +21,7 @@
         [
             'siteKey' => '6LehA-MUAAAAAJsW185tgYm6axua8AHfh3Oio7GS', // unnecessary is reCaptcha component was set up
         ]
-    ) ?>
+    )->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton(\Yii::t('common', 'Add'), ['class' => 'btn btn-primary']) ?>

@@ -39,7 +39,8 @@ return [
     'Comment' => 'Комментарий',
     'Optional name' => 'Имя (необязательное)',
     'Comments' => 'Комментарии',
-    'Random page' => 'Случайная статья'
+    'Random page' => 'Случайная статья',
+    'Confirm that you not robot.' => 'Подтвердите, что вы не робот.'
 
     
 ];

@@ -41,7 +41,7 @@ class PageComments extends \yii\db\ActiveRecord
             [['page_id'], 'exist', 'skipOnError' => true, 'targetClass' => Pages::className(), 'targetAttribute' => ['page_id' => 'id']],
             [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(),
                 'secret' => '6LehA-MUAAAAAA0Fj04XJSCzn5aRP8Bahe07ot9s',
-                'uncheckedMessage' => 'Я не робот.'
+                'uncheckedMessage' => \Yii::t('common', 'Confirm that you not robot.')
             ]
         ];
     }
