@@ -38,6 +38,10 @@ $this->title = \Yii::t('common', 'Portal of images - karkaron.com');
         margin: 4px;
      }
 
+    .random-page {
+        text-align: center;
+    }
+
     @media (max-width: 1220px) {
         .small-image {
             width: 30%;
@@ -65,7 +69,17 @@ $this->title = \Yii::t('common', 'Portal of images - karkaron.com');
         <div class="image-search">
             <?= $this->render('/image/_search_form', ['model' => $model]) ?>
         </div>
-        
+
+        <div class="random-page">
+            <i>
+                <?=\ Yii::t('common', 'Random page') ?>
+                <br>
+                <?= Html::a($randomPage->title, ['pages/' . $randomPage->id . '-' . $randomPage->translit_title]) ?>
+            </i>
+        </div>
+
+        <br>
+
         <div style="padding: 1%;margin-bottom: 1%;text-align: center;">
             <?php foreach($randomTags as $tag): ?>
                 <div class="tag">

@@ -103,6 +103,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $page->content; ?>
     </div>
 
+    <br><br>
+
+    <div class="row11">
+        <i><?= \Yii::t('common', 'Created') . " - " . $page->created; ?></i>
+    </div>
+
 </div>
 
 <br><br>
