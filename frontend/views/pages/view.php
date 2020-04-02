@@ -82,43 +82,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="page-wrapper">
 
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <ins class="adsbygoogle"
-         style="display:block; text-align:center;"
-         data-ad-layout="in-article"
-         data-ad-format="fluid"
-         data-ad-client="ca-pub-8218926731618294"
-         data-ad-slot="3840166065"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-
     <br>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <br>
-    
+
+    <div class="row11">
+        <i><?= \Yii::t('common', 'Created') . " - " . $page->created; ?></i>
+    </div>
+
+    <br>
+
     <div class="row">
             <?= $page->content; ?>
     </div>
 
     <br><br>
 
-    <div class="row11">
-        <i><?= \Yii::t('common', 'Created') . " - " . $page->created; ?></i>
+    <div class="common_footer_part">
+        Свои возражения и замечания оставляйте в комментариях ниже.
     </div>
 
-</div>
-
-<br><br>
-
-<div class="image-comment-form">
-    <div><h4><?=\Yii::t('common', 'Add comment')?></h4></div>
-    <?= $this->render('_comment_form', [
-        'commentModel' => $commentModel,
-        'pageId' => $page->id
-    ]) ?>
 </div>
 
 <br><br>
@@ -128,5 +113,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <hr>
     <?= $this->render('_comments_list', [
         'model' => $page
+    ]) ?>
+</div>
+
+<br><br>
+
+<div class="image-comment-form">
+    <div><h4><?=\Yii::t('common', 'Add comment')?></h4></div>
+    <?= $this->render('_comment_form', [
+        'commentModel' => $commentModel,
+        'pageId' => $page->id
     ]) ?>
 </div>
