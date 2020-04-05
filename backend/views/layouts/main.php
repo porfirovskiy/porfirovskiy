@@ -43,6 +43,8 @@ AppAsset::register($this);
     } else {
         
         $menuItems[] = ['label' => 'Pages', 'url' => ['/pages/index']];
+
+        $menuItems[] = ['label' => 'Pages Comments', 'url' => ['/pages/comments']];
         
         $menuItems[] = '<li>'
             . Html::beginForm(['/site/logout'], 'post')

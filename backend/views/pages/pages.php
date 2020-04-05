@@ -4,7 +4,7 @@ use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = 'List of images';
+$this->title = 'List of pages';
 ?>
 <div class="site-index">
     <?php

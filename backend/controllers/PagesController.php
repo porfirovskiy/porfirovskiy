@@ -6,6 +6,7 @@ use Yii;
 use yii\web\Controller;
 use frontend\models\Pages;
 use frontend\models\PageForm;
+use frontend\models\PageComments;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
 
@@ -28,7 +29,11 @@ class PagesController extends Controller
             ],
         ];
     }
-    
+
+    /**
+     * Get pages list for admin
+     * @return string
+     */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
@@ -42,7 +47,30 @@ class PagesController extends Controller
             'dataProvider' => $dataProvider
         ]);
     }
-    
+
+    /**
+     * Get pages comments list for admin
+     * @return string
+     */
+    public function actionComments()
+    {
+        $dataProvider = new ActiveDataProvider([
+            'query' => PageComments::find(),
+            'pagination' => [
+                'pageSize' => 40
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'created' => SORT_DESC,
+                ]
+            ]
+        ]);
+
+        return $this->render('pages-comments', [
+            'dataProvider' => $dataProvider
+        ]);
+    }
+
     public function actionUpdate(int $id)
     {
         $page = Pages::findOne($id);  
