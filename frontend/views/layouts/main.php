@@ -98,7 +98,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode('karkaron.com') ?> <?= date('Y') ?></p>
+        <p class="pull-left">&copy; <?= Html::encode('porfirovskiy.name') ?> <?= date('Y') ?></p>
 
         <p class="pull-right"><?= '' ?></p>
     </div>

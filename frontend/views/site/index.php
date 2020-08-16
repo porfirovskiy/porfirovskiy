@@ -5,7 +5,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = \Yii::t('common', 'Portal of images - karkaron.com');
+$this->title = \Yii::t('common', 'Главная - porfirovskiy.name');
 ?>
 
   <style>
