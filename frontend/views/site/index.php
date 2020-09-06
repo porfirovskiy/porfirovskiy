@@ -70,14 +70,16 @@ $this->title = \Yii::t('common', 'Главная - porfirovskiy.name');
             <?= $this->render('/image/_search_form', ['model' => $model]) ?>
         </div>
 
-        <div class="random-page">
-            <i>
-                <?=\ Yii::t('common', 'Random page') ?>
-                <br>
-                <?= Html::a($randomPage->title, ['pages/' . $randomPage->id . '-' . $randomPage->translit_title]) ?>
-            </i>
-        </div>
-
+        <?php if(!is_null($randomPage)): ?>
+            <div class="random-page">
+                <i>
+                    <?=\ Yii::t('common', 'Random page') ?>
+                    <br>
+                    <?= Html::a($randomPage->title, ['pages/' . $randomPage->id . '-' . $randomPage->translit_title]) ?>
+                </i>
+            </div>
+        <?php endif; ?>
+            
         <br>
 
         <div style="padding: 1%;margin-bottom: 1%;text-align: center;">
