@@ -55,7 +55,7 @@ class ImageController extends Controller
         $model->tags = ArrayHelper::getColumn($tags, 'title');
         //get description
         $model->description = isset($image->descriptions[0]) ? $image->descriptions[0]->text : null;
-        if (Yii::$app->request->isPost) {
+        if (Yii::$app->request->isPost) { 
             $model->load(Yii::$app->request->post());
             $model->translit_name = \yii\helpers\Inflector::slug($model->name, '-');
             if ($model->update($id)) {

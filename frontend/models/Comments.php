@@ -19,7 +19,7 @@ use common\models\User;
  */
 class Comments extends \yii\db\ActiveRecord
 {
-    public $verifyCode;
+    public $reCaptcha;
     
     /**
      * {@inheritdoc}
@@ -41,9 +41,10 @@ class Comments extends \yii\db\ActiveRecord
             [['created'], 'safe'],
             [['image_id'], 'exist', 'skipOnError' => true, 'targetClass' => Images::className(), 'targetAttribute' => ['image_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
-            // verifyCode needs to be entered correctly
-            [['verifyCode'], 'required'],
-            ['verifyCode', 'captcha'],
+            [['reCaptcha'], \himiklab\yii2\recaptcha\ReCaptchaValidator::className(),
+                'secret' => '6LdI75AaAAAAANhTm_4ejIKDrV5ylkryXBi-aip2',
+                'uncheckedMessage' => \Yii::t('common', 'Confirm that you not robot.')
+            ]
         ];
     }
 
