@@ -19,7 +19,7 @@
      <?= $form->field($commentModel, 'reCaptcha')->widget(
         \himiklab\yii2\recaptcha\ReCaptcha2::className(),
         [
-            'siteKey' => '6LehA-MUAAAAAJsW185tgYm6axua8AHfh3Oio7GS', // unnecessary is reCaptcha component was set up
+            'siteKey' => '6LdI75AaAAAAAFYegXcNmD7rvp1M5B39W0fDRU0e', // unnecessary is reCaptcha component was set up
         ]
     )->label(false) ?>
 
